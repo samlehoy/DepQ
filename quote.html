@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quotes</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+        body {
+            font-family: "Figtree", sans-serif;
+            background-color: white; /* Background utama berwarna putih */
+            height: 100vh; /* Pastikan body mengisi tinggi penuh viewport */
+            margin: 0; /* Pastikan tidak ada margin default */
+        }
+        .bg-custom-teal {
+            background-color: #29ADB2;
+        }
+        .text-custom-teal {
+            color: #29ADB2;
+        }
+        .hover\:text-custom-teal:hover {
+            color: #29ADB2;
+        }
+        /* Mengatur warna sidebar item yang aktif sesuai contoh */
+        .sidebar-active-item {
+            background-color: #F0F9F8; /* teal-50 di Tailwind */
+            color: #29ADB2; /* custom-teal */
+            font-weight: 700; /* font-bold */
+        }
+        /* Tinggi perkiraan dari bottom nav, sesuaikan jika perlu */
+        .pb-bottom-nav {
+            padding-bottom: 70px; /* Nilai ini harus lebih besar dari tinggi bottom nav Anda. 64px (p-4 + default font) + sedikit lebih */
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 lg:bg-gray-800">
+    <div class="lg:flex lg:min-h-screen w-full">
+        <aside class="hidden lg:flex lg:flex-col lg:w-64 bg-white shadow-md">
+            <div class="p-6 text-2xl font-bold text-custom-teal border-b">DepQ</div>
+            <nav class="flex-1 p-4 space-y-2">
+                <a
+                    href="#"
+                    class="flex items-center gap-3 p-3 rounded-lg text-gray-600 hover:bg-gray-100"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-6 w-6"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                    >
+                        <path
+                            d="M12.0006 2.00061L4.00061 9.00061V20.0006H10.0006V14.0006H14.0006V20.0006H20.0006V9.00061L12.0006 2.00061Z"
+                        ></path>
+                    </svg>
+                    <span>Home</span>
+                </a>
+                <a
+                    href="#"
+                    class="flex items-center gap-3 p-3 rounded-lg sidebar-active-item"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-6 w-6"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                    >
+                        <path
+                            d="M9.99999 15.1716L19.5355 5.63599L20.9497 7.0502L9.99999 18L3.63603 11.636L5.05024 10.2218L9.99999 15.1716Z"
+                        ></path>
+                    </svg>
+                    <span>Quote</span>
+                </a>
+                <a
+                    href="#"
+                    class="flex items-center gap-3 p-3 rounded-lg text-gray-600 hover:bg-gray-100"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-6 w-6"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                    >
+                        <path
+                            d="M4 19H12V21H4C2.89543 21 2 20.1046 2 19V5C2 3.89543 2.89543 3 4 3H12V5H4V19ZM14 3V15.5492L11.5317 14.2183L11.0501 13.9685L10.5685 14.2183L8.10019 15.5492V3H14ZM16 1L6 1C4.89543 1 4 1.89543 4 3V18.8879C4 19.4623 4.50033 19.8665 5.04369 19.642L11.0501 16.5414L17.0565 19.642C17.5999 19.8665 18.1 19.4623 18.1 18.8879V3C18.1 1.89543 17.2046 1 16 1Z"
+                        ></path>
+                    </svg>
+                    <span>Hafalan</span>
+                </a>
+                <a
+                    href="#"
+                    class="flex items-center gap-3 p-3 rounded-lg text-gray-600 hover:bg-gray-100"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-6 w-6"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                    >
+                        <path
+                            d="M12 1L21.5 6.5V17.5L12 23L2.5 17.5V6.5L12 1ZM12 3.311L4.5 7.653V16.347L12 20.689L19.5 16.347V7.653L12 3.311ZM12 16C9.79086 16 8 14.2091 8 12C8 9.79086 9.79086 8 12 8C14.2091 8 16 9.79086 16 12C16 14.2091 14.2091 16 12 16ZM12 14C13.1046 14 14 13.1046 14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14Z"
+                        ></path>
+                    </svg>
+                    <span>Settings</span>
+                </a>
+            </nav>
+        </aside>
+
+        <div class="flex-1 bg-white lg:shadow-2xl h-screen lg:h-full">
+            <header class="bg-white p-4 text-center">
+                <h1 class="text-xl font-semibold text-gray-800">Quote</h1>
+            </header>
+
+            <main class="flex-grow p-4 space-y-4 overflow-y-auto lg:pb-4 pb-bottom-nav shadow-md">
+                <div class="bg-custom-teal text-white p-4 rounded-lg shadow-md">
+                    <h2 class="font-bold text-lg mb-1">Al-Baqarah [2:286]</h2>
+                    <p class="text-sm">Allah tidak membebani seseorang melainkan sesuai dengan kesanggupannya.</p>
+                </div>
+
+                <div class="bg-custom-teal text-white p-4 rounded-lg shadow-md">
+                    <h2 class="font-bold text-lg mb-1">Al-Baqarah [2:155]</h2>
+                    <p class="text-sm">Barangsiapa yang bersabar, maka Allah akan memberikan jalan keluar.</p>
+                </div>
+
+                <div class="bg-custom-teal text-white p-4 rounded-lg shadow-md">
+                    <h2 class="font-bold text-lg mb-1">Al-Baqarah [2:110]</h2>
+                    <p class="text-sm">Dan apa saja kebaikan yang kamu kerjakan untuk dirimu sendiri, niscaya kamu akan memperoleh (balasan)nya di sisi Allah.</p>
+                </div>
+
+                <div class="bg-custom-teal text-white p-4 rounded-lg shadow-md">
+                    <h2 class="font-bold text-lg mb-1">Al-Imran [3:139]</h2>
+                    <p class="text-sm">Janganlah kamu (merasa) lemah dan jangan (pula) bersedih hati, padahal kamu paling tinggi (derajatnya) jika kamu orang-orang mukmin.</p>
+                </div>
+
+                <div class="bg-custom-teal text-white p-4 rounded-lg shadow-md">
+                    <h2 class="font-bold text-lg mb-1">Ar-Ra'd [13:11]</h2>
+                    <p class="text-sm">Allah tidak akan mengubah nasib suatu kaum kecuali mereka sendiri yang mengubahnya.</p>
+                </div>
+
+                <div class="bg-custom-teal text-white p-4 rounded-lg shadow-md">
+                    <h2 class="font-bold text-lg mb-1">An-Nur [24:26]</h2>
+                    <p class="text-sm">Wanita-wanita yang keji untuk laki-laki yang keji, dan laki-laki yang keji untuk wanita-wanita yang keji (pula), dan wanita-wanita yang baik untuk laki-laki yang baik dan laki-laki yang baik untuk wanita-wanita yang baik (pula).</p>
+                </div>
+
+                <div class="bg-custom-teal text-white p-4 rounded-lg shadow-md">
+                    <h2 class="font-bold text-lg mb-1">QS. Ath-Thalaq [65:2-3]</h2>
+                    <p class="text-sm">Barangsiapa bertakwa kepada Allah niscaya Dia akan mengadakan baginya jalan keluar, dan memberinya rezeki dari arah yang tiada disangka-sangkanya.</p>
+                </div>
+
+                <div class="bg-custom-teal text-white p-4 rounded-lg shadow-md">
+                    <h2 class="font-bold text-lg mb-1">Al-Baqarah [2:256]</h2>
+                    <p class="text-sm">Tidak ada paksaan dalam (menganut) agama (Islam), sesungguhnya telah jelas jalan yang benar dari jalan yang sesat.</p>
+                </div>
+                <div class="bg-custom-teal text-white p-4 rounded-lg shadow-md">
+                    <h2 class="font-bold text-lg mb-1">Al-Insyirah [94:5-6]</h2>
+                    <p class="text-sm">Maka sesungguhnya bersama kesulitan ada kemudahan, sesungguhnya bersama kesulitan ada kemudahan.</p>
+                </div>
+                <div class="bg-custom-teal text-white p-4 rounded-lg shadow-md">
+                    <h2 class="font-bold text-lg mb-1">Al-Anbiya [21:107]</h2>
+                    <p class="text-sm">Dan tiadalah Kami mengutus kamu, melainkan untuk (menjadi) rahmat bagi semesta alam.</p>
+                </div>
+                <div class="bg-custom-teal text-white p-4 rounded-lg shadow-md">
+                    <h2 class="font-bold text-lg mb-1">Ar-Rum [30:60]</h2>
+                    <p class="text-sm">Dan bersabarlah kamu (Muhammad) karena sesungguhnya janji Allah itu benar, dan sekali-kali janganlah orang-orang yang tidak meyakini (kebenaran ayat-ayat Allah) itu menggelisahkan kamu.</p>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <nav class="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t p-4 shadow-lg z-10">
+        <div class="flex justify-around max-w-sm mx-auto">
+            <a href="#" class="flex flex-col items-center text-gray-500 hover:text-custom-teal">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-6 w-6"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                >
+                    <path
+                        d="M12.0006 2.00061L4.00061 9.00061V20.0006H10.0006V14.0006H14.0006V20.0006H20.0006V9.00061L12.0006 2.00061Z"
+                    ></path>
+                </svg>
+                <span class="text-xs mt-1">Home</span>
+            </a>
+            <a href="#" class="flex flex-col items-center text-custom-teal">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-6 w-6"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                >
+                    <path
+                        d="M9.99999 15.1716L19.5355 5.63599L20.9497 7.0502L9.99999 18L3.63603 11.636L5.05024 10.2218L9.99999 15.1716Z"
+                    ></path>
+                </svg>
+                <span class="text-xs mt-1">Quote</span>
+            </a>
+            <a href="#" class="flex flex-col items-center text-gray-500 hover:text-custom-teal">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-6 w-6"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                >
+                    <path
+                        d="M4 19H12V21H4C2.89543 21 2 20.1046 2 19V5C2 3.89543 2.89543 3 4 3H12V5H4V19ZM14 3V15.5492L11.5317 14.2183L11.0501 13.9685L10.5685 14.2183L8.10019 15.5492V3H14ZM16 1L6 1C4.89543 1 4 1.89543 4 3V18.8879C4 19.4623 4.50033 19.8665 5.04369 19.642L11.0501 16.5414L17.0565 19.642C17.5999 19.8665 18.1 19.4623 18.1 18.8879V3C18.1 1.89543 17.2046 1 16 1Z"
+                    ></path>
+                </svg>
+                <span class="text-xs mt-1">Hafalan</span>
+            </a>
+            <a href="#" class="flex flex-col items-center text-gray-500 hover:text-custom-teal">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-6 w-6"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                >
+                    <path
+                        d="M12 1L21.5 6.5V17.5L12 23L2.5 17.5V6.5L12 1ZM12 3.311L4.5 7.653V16.347L12 20.689L19.5 16.347V7.653L12 3.311ZM12 16C9.79086 16 8 14.2091 8 12C8 9.79086 9.79086 8 12 8C14.2091 8 16 9.79086 16 12C16 14.2091 14.2091 16 12 16ZM12 14C13.1046 14 14 13.1046 14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14Z"
+                    ></path>
+                </svg>
+                <span class="text-xs mt-1">Settings</span>
+            </a>
+        </div>
+    </nav>
+</body>
+</html>
