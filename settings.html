@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Settings</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+    />
+    <style>
+        body {
+            font-family: "Figtree", sans-serif;
+            background-color: #f1f5f9; /* bg-gray-100 */
+            height: 100vh; /* Pastikan body mengisi tinggi penuh viewport */
+            margin: 0; /* Pastikan tidak ada margin default */
+        }
+        .bg-custom-teal {
+            background-color: #29ADB2;
+        }
+        .text-custom-teal {
+            color: #29ADB2;
+        }
+        .hover\:text-custom-teal:hover {
+            color: #29ADB2;
+        }
+        /* Mengatur warna sidebar item yang aktif sesuai contoh */
+        .sidebar-active-item {
+            background-color: #F0F9F8; /* teal-50 di Tailwind */
+            color: #29ADB2; /* custom-teal */
+            font-weight: 700; /* font-bold */
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 lg:bg-gray-800">
+    <div class="lg:flex lg:min-h-screen w-full">
+
+
+        <div class="flex-1 bg-gray-100 lg:bg-white lg:shadow-2xl h-screen lg:h-full flex flex-col">
+            
+            <header class="bg-custom-teal text-white p-6 rounded-b-xl shadow-md flex flex-col items-center">
+                <img
+                    src="https://placehold.co/100x100/29ADB2/ffffff?text=ME"
+                    alt="Profile Picture"
+                    class="w-24 h-24 rounded-full border-4 border-white mb-2 object-cover"
+                />
+                <h2 class="font-bold text-lg">Fatima Eleonore</h2>
+                <p class="text-sm">eleonore@gmail.com</p>
+            </header>
+            
+            <main class="flex-grow p-4 overflow-y-auto">
+                <div class="space-y-2">
+                    <a href="#" class="flex items-center justify-between bg-white p-4 rounded-lg shadow-sm">
+                        <div class="flex items-center gap-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M18 10C18 13.3137 15.3137 16 12 16C8.68629 16 6 13.3137 6 10C6 6.68629 8.68629 4 12 4C15.3137 4 18 6.68629 18 10ZM20 10C20 5.58172 16.4183 2 12 2C7.58172 2 4 5.58172 4 10C4 11.0571 4.21327 12.0622 4.59737 12.9856L3.00391 16.0078L6.46823 15.6599C7.44755 16.6347 8.66579 17.3756 10 17.8188V20L14 20V17.8188C15.3342 17.3756 16.5524 16.6347 17.5318 15.6599L20.9961 16.0078L19.4026 12.9856C19.7867 12.0622 20 11.0571 20 10Z"></path>
+                            </svg>
+                            <span class="text-gray-800">Notifications</span>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-400">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                        </svg>
+                    </a>
+
+                    <div class="flex items-center justify-between bg-white p-4 rounded-lg shadow-sm">
+                        <div class="flex items-center gap-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2.5C6.20101 2.5 2.5 6.20101 2.5 12C2.5 17.799 6.20101 21.5 12 21.5C17.799 21.5 21.5 17.799 21.5 12C21.5 6.20101 17.799 2.5 12 2.5ZM12 4.5C16.6944 4.5 20.4684 7.63203 21.3255 12C20.4684 16.368 16.6944 19.5 12 19.5C7.30559 19.5 3.53158 16.368 2.67455 12C3.53158 7.63203 7.30559 4.5 12 4.5ZM13 10V4.5C14.7369 4.88705 16.2731 5.92211 17.4101 7.41916C18.5472 8.91621 19.231 10.8037 19.3905 12.802C19.55 14.8003 19.1783 16.8041 18.3276 18.5292C17.4768 20.2542 16.1887 21.6241 14.6364 22.4939C13.0841 23.3637 11.3323 23.7042 9.61053 23.4739C7.88879 23.2436 6.2798 22.4578 4.96877 21.2185C3.65774 19.9791 2.70932 18.3582 2.23594 16.5654C1.76255 14.7727 1.8 12.8942 2.34757 11.1444C2.89515 9.39459 3.93175 7.8596 5.34217 6.70204C6.75259 5.54447 8.48911 4.80931 10.35 4.59864C10.3833 4.59473 10.4167 4.59124 10.45 4.58816C10.4667 4.58693 10.4833 4.58575 10.5 4.58462V10H13ZM12 17C14.7614 17 17 14.7614 17 12C17 9.23858 14.7614 7 12 7C9.23858 7 7 9.23858 7 12C7 14.7614 9.23858 17 12 17Z"></path>
+                            </svg>
+                            <span class="text-gray-800">Dark Mode</span>
+                        </div>
+                        <label for="dark-mode-toggle" class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" value="" id="dark-mode-toggle" class="sr-only peer">
+                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-custom-teal"></div>
+                        </label>
+                    </div>
+
+                    <a href="#" class="flex items-center justify-between bg-white p-4 rounded-lg shadow-sm">
+                        <div class="flex items-center gap-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20ZM11 15H13V17H11V15ZM11 7H13V13H11V7Z"></path>
+                            </svg>
+                            <span class="text-gray-800">Help and Feedback</span>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-400">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                        </svg>
+                    </a>
+
+                    <a href="#" class="flex items-center justify-between bg-white p-4 rounded-lg shadow-sm">
+                        <div class="flex items-center gap-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2.5C6.20101 2.5 2.5 6.20101 2.5 12C2.5 17.799 6.20101 21.5 12 21.5C17.799 21.5 21.5 17.799 21.5 12C21.5 6.20101 17.799 2.5 12 2.5ZM12 4.5C16.6944 4.5 20.4684 7.63203 21.3255 12C20.4684 16.368 16.6944 19.5 12 19.5C7.30559 19.5 3.53158 16.368 2.67455 12C3.53158 7.63203 7.30559 4.5 12 4.5ZM13 10V4.5C14.7369 4.88705 16.2731 5.92211 17.4101 7.41916C18.5472 8.91621 19.231 10.8037 19.3905 12.802C19.55 14.8003 19.1783 16.8041 18.3276 18.5292C17.4768 20.2542 16.1887 21.6241 14.6364 22.4939C13.0841 23.3637 11.3323 23.7042 9.61053 23.4739C7.88879 23.2436 6.2798 22.4578 4.96877 21.2185C3.65774 19.9791 2.70932 18.3582 2.23594 16.5654C1.76255 14.7727 1.8 12.8942 2.34757 11.1444C2.89515 9.39459 3.93175 7.8596 5.34217 6.70204C6.75259 5.54447 8.48911 4.80931 10.35 4.59864C10.3833 4.59473 10.4167 4.59124 10.45 4.58816C10.4667 4.58693 10.4833 4.58575 10.5 4.58462V10H13ZM12 17C14.7614 17 17 14.7614 17 12C17 9.23858 14.7614 7 12 7C9.23858 7 7 9.23858 7 12C7 14.7614 9.23858 17 12 17Z"></path>
+                            </svg>
+                            <span class="text-gray-800">About</span>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-400">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                        </svg>
+                    </a>
+
+                    <a href="#" class="flex items-center justify-between bg-white p-4 rounded-lg shadow-sm">
+                        <div class="flex items-center gap-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2ZM12 4C16.4183 4 20 7.58172 20 12C20 16.4183 16.4183 20 12 20C7.58172 20 4 16.4183 4 12C4 7.58172 7.58172 4 12 4ZM12 6C9.34914 6 7.15904 7.64446 6.30598 10H17.694C16.8409 7.64446 14.6509 6 12 6ZM4.20579 12C4.07166 11.3533 4 10.6866 4 10V10H20C20 10.6866 19.9283 11.3533 19.7942 12H4.20579ZM6.30598 14C7.15904 16.3555 9.34914 18 12 18C14.6509 18 16.8409 16.3555 17.694 14H6.30598Z"></path>
+                            </svg>
+                            <span class="text-gray-800">www.daaruhiraa.com</span>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-400">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                        </svg>
+                    </a>
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+</html>
