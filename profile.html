@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DepQ - Profil</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Konfigurasi Tambahan untuk Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'brand-teal': {
+                            '600': '#00838F', // Warna utama untuk tombol
+                            '700': '#006064', // Warna utama untuk header
+                        },
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Style dasar untuk body */
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        /* Memberikan background pada body untuk melihat kontras lengkungan */
+        .app-bg {
+            background-color: #f8fafc; /* slate-50 */
+        }
+    </style>
+</head>
+<body class="font-sans app-bg">
+
+    <!-- Container Utama -->
+    <div class="max-w-md mx-auto bg-white">
+
+        <!-- ===== BAGIAN HEADER PROFIL ===== -->
+        <header class="bg-brand-teal-700 text-white p-8 pb-12 rounded-b-[3rem] text-center relative shadow-lg">
+            <!-- Foto Profil -->
+            <div class="relative w-28 h-28 mx-auto">
+                <img 
+                    src="https://i.pravatar.cc/128?u=fatima" 
+                    alt="Foto Profil Fatima Eleonore" 
+                    class="w-full h-full rounded-full object-cover border-4 border-white shadow-md"
+                    onerror="this.onerror=null; this.src='https://placehold.co/128x128/E0E0E0/FFFFFF?text=FE';">
+                
+                <!-- Tombol Edit Ikon -->
+                <button class="absolute bottom-0 right-0 bg-white w-8 h-8 rounded-full flex items-center justify-center shadow-md hover:bg-slate-100 transition">
+                    <!-- Ikon Pensil SVG -->
+                    <svg class="w-4 h-4 text-brand-teal-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- Nama dan Email -->
+            <div class="mt-4">
+                <h1 class="text-xl font-bold">Fatima Eleonore</h1>
+                <p class="text-sm text-slate-200">eleonore@gmail.com</p>
+            </div>
+        </header>
+
+        <!-- ===== BAGIAN FORM PROFIL ===== -->
+        <main class="p-8">
+            <form class="space-y-6">
+                <!-- Input Nama -->
+                <div>
+                    <label for="name" class="font-semibold text-sm text-slate-700">Nama</label>
+                    <input 
+                        type="text" 
+                        id="name" 
+                        name="name" 
+                        value="Fatima Eleonore" 
+                        class="mt-2 w-full px-4 py-3 bg-slate-100 rounded-xl border-none focus:outline-none focus:ring-2 focus:ring-brand-teal-600 transition text-slate-800">
+                </div>
+                
+                <!-- Input E-mail -->
+                <div>
+                    <label for="email" class="font-semibold text-sm text-slate-700">E-mail</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        value="eleonore@gmail.com" 
+                        class="mt-2 w-full px-4 py-3 bg-slate-100 rounded-xl border-none focus:outline-none focus:ring-2 focus:ring-brand-teal-600 transition text-slate-800">
+                </div>
+                
+                <!-- Input Password -->
+                <div>
+                    <label for="password" class="font-semibold text-sm text-slate-700">Password</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        value="****************" 
+                        class="mt-2 w-full px-4 py-3 bg-slate-100 rounded-xl border-none focus:outline-none focus:ring-2 focus:ring-brand-teal-600 transition text-slate-500">
+                </div>
+
+                <!-- Tombol Simpan -->
+                <div class="pt-4">
+                    <button type="submit" class="w-full bg-brand-teal-600 hover:bg-brand-teal-700 text-white font-bold py-4 px-4 rounded-full transition duration-300 shadow-lg shadow-brand-teal-600/20">
+                        Simpan
+                    </button>
+                </div>
+            </form>
+        </main>
+
+    </div>
+</body>
+</html>

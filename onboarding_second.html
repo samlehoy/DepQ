@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DepQ - Onboarding</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Konfigurasi Tambahan untuk Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'brand-teal': {
+                            '600': '#00838F', // Warna utama untuk tombol
+                            '700': '#006064', // Warna utama untuk teks/logo
+                        },
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Style dasar untuk body */
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+    </style>
+</head>
+<body class="bg-white font-sans">
+
+    <!-- Container Utama -->
+    <div class="max-w-md mx-auto">
+
+        <!-- ===== HALAMAN ONBOARDING ===== -->
+        <div id="onboarding-page" class="min-h-screen flex flex-col justify-between p-8 text-center">
+
+            <!-- Logo -->
+            <div class="text-center mt-20">
+                <h1 class="text-6xl font-extrabold text-brand-teal-700">DepQ</h1>
+            </div>
+
+            <!-- Konten Tengah -->
+            <div class="flex-grow flex flex-col justify-center items-center mt-40">
+                <!-- Indikator Halaman (Dots) -->
+                <div class="flex items-center space-x-2">
+                    <div class="w-2.5 h-2.5 bg-slate-300 rounded-full"></div>
+                    <div class="w-2.5 h-2.5 bg-slate-600 rounded-full"></div>
+                </div>
+                    
+                <!-- Teks Utama -->
+                <div class="mt-4">
+                    <h2 class="text-2xl font-bold text-slate-800">Simpan</h2>
+                    <p class="text-slate-500 mt-2">Progress surahmu.</p>
+                </div>
+            </div>
+            
+            <!-- Tombol Aksi di Bawah -->
+            <div class="w-full mb-20 ">
+                <button id="btn-lanjut" class="w-full bg-brand-teal-600 hover:bg-brand-teal-700 text-white font-bold py-4 px-4 rounded-full transition duration-300 shadow-lg shadow-brand-teal-600/20">
+                    Lanjut
+                </button>
+                <button id="btn-lewati" class="w-full text-brand-teal-700 font-bold py-4 px-4 rounded-full mt-2 transition duration-300">
+                    Lewati
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript untuk fungsionalitas -->
+    <script>
+        // Fungsi untuk mengarahkan ke halaman registrasi
+        function goToRegisterPage() {
+            // Ganti dengan nama file register Anda jika berbeda
+            window.location.href = 'register.html'; 
+        }
+
+        // Tambahkan event listener ke tombol
+        document.getElementById('btn-lanjut').addEventListener('click', goToRegisterPage);
+        document.getElementById('btn-lewati').addEventListener('click', goToRegisterPage);
+    </script>
+
+</body>
+</html>
