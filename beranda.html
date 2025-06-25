@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Beranda</title>
+    <title>DepQ | Beranda (Mobile)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -11,122 +11,114 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <style>
-      body {
-        font-family: "Poppins", sans-serif;
-      }
-    </style>
+    <link rel="stylesheet" href="css/style.css" />
   </head>
-  <body class="bg-gray-100 lg:bg-gray-800">
-    <div class="lg:flex lg:min-h-screen">
-      <main class="flex-1 bg-white lg:shadow-2xl h-screen lg:h-full">
-        <div class="max-w-sm mx-auto lg:max-w-full p-6 lg:p-10">
-          <header class="hidden lg:block mb-8">
-            <h1 class="text-3xl font-bold text-gray-800">Selamat Datang!</h1>
-            <p class="text-gray-500">Karina</p>
-          </header>
 
-          <div class="text-center mb-4">
-            <p id="gregorian-date" class="text-sm font-medium text-gray-600">
-              Memuat tanggal...
-            </p>
-            <p id="hijri-date" class="text-xs text-gray-400">
-              Memuat tanggal Hijriah...
-            </p>
-          </div>
+  <body class="flex flex-col min-h-screen">
+    <!-- HEADER: Stays at the top, sticky behavior is maintained within the flex column -->
+    <header class="bg-white shadow-sm p-4 z-10 lg:hidden">
+      <h1 class="text-xl font-bold text-teal-600 text-center">DepQ</h1>
+    </header>
 
-          <div class="grid grid-cols-1 gap-8">
-            <div class="lg:col-span-3 flex flex-col gap-8">
-              <div
-                class="bg-[#006A71] text-white rounded-2xl p-12 text-center shadow-lg"
+    <main class="flex-grow flex items-center">
+      <div class="max-w-lg mx-auto p-6 w-full">
+        <div class="text-center mb-6">
+          <p id="gregorian-date" class="text-lg font-medium text-gray-700">
+            Rabu, 25 Juni 2025
+          </p>
+          <p id="hijri-date" class="text-sm text-gray-500">
+            28 Zulhijah 1446 H
+          </p>
+        </div>
+
+        <div
+          class="bg-[#006A71] text-white rounded-2xl p-8 text-center shadow-lg mb-8"
+        >
+          <p id="prayer-name" class="text-2xl font-semibold capitalize">
+            Ashar
+          </p>
+          <h2 id="prayer-time" class="text-5xl font-bold my-2">memuat</h2>
+          <p id="location" class="text-base opacity-80">
+            Sleman, Condong Catur
+          </p>
+        </div>
+
+        <div class="bg-white p-2 rounded-xl shadow-md mb-8">
+          <div class="bg-gray-50 p-4 rounded-xl">
+            <div
+              id="day-selector"
+              class="flex justify-around items-center text-center text-gray-500"
+            >
+              <span
+                data-day="0"
+                class="day-item w-10 h-10 flex items-center justify-center text-sm rounded-full"
+                >Sun</span
               >
-                <p id="prayer-name" class="text-lg lg:text-5xl font-semibold">
-                  memuat shalat...
-                </p>
-                <h2
-                  id="prayer-time"
-                  class="text-5xl lg:text-8xl font-bold my-1"
-                >
-                  memuat jam..</span>
-                </h2>
-                <p class="text-sm opacity-80">Sleman, Condong catur</p>
-              </div>
-
-              <div class="bg-gray-50 p-4 rounded-xl">
-                <div
-                  id="day-selector"
-                  class="flex justify-around items-center text-center text-gray-500"
-                >
-                  <span
-                    data-day="0"
-                    class="day-item w-10 h-10 flex items-center justify-center text-sm rounded-full"
-                    >Sun</span
-                  >
-                  <span
-                    data-day="1"
-                    class="day-item w-10 h-10 flex items-center justify-center text-sm rounded-full"
-                    >Mon</span
-                  >
-                  <span
-                    data-day="2"
-                    class="day-item w-10 h-10 flex items-center justify-center text-sm rounded-full"
-                    >Tue</span
-                  >
-                  <span
-                    data-day="3"
-                    class="day-item w-10 h-10 flex items-center justify-center text-sm rounded-full"
-                    >Wed</span
-                  >
-                  <span
-                    data-day="4"
-                    class="day-item w-10 h-10 flex items-center justify-center text-sm rounded-full"
-                    >Thu</span
-                  >
-                  <span
-                    data-day="5"
-                    class="day-item w-10 h-10 flex items-center justify-center text-sm rounded-full"
-                    >Fri</span
-                  >
-                  <span
-                    data-day="6"
-                    class="day-item w-10 h-10 flex items-center justify-center text-sm rounded-full"
-                    >Sat</span
-                  >
-                </div>
-              </div>
-            </div>
-
-            <div class="lg:col-span-2 flex flex-col gap-8">
-              <div
-                class="bg-white p-6 rounded-2xl border border-gray-200 lg:bg-gray-50 lg:border-none"
+              <span
+                data-day="1"
+                class="day-item w-10 h-10 flex items-center justify-center text-sm rounded-full"
+                >Mon</span
               >
-                <div class="flex justify-between items-center mb-3">
-                  <h3 class="font-bold text-lg text-gray-800">Hafalan</h3>
-                  <a href="#" class="text-sm text-teal-500 font-medium"
-                    >See all</a
-                  >
-                </div>
-                <div
-                  class="bg-gray-100 lg:bg-white border border-gray-200 rounded-xl p-4"
-                >
-                  <p class="text-gray-700">An-Nas [1-5]</p>
-                </div>
-              </div>
-
-              <div class="bg-teal-500 text-white rounded-2xl p-6 shadow-md">
-                <p class="font-bold text-sm">Al-Baqarah [2:2]</p>
-                <p class="text-xs mt-1 opacity-90">
-                  This is the Book about which there is no doubt, a guidance for
-                  those conscious of Allah.
-                </p>
-              </div>
+              <span
+                data-day="2"
+                class="day-item w-10 h-10 flex items-center justify-center text-sm rounded-full"
+                >Tue</span
+              >
+              <span
+                data-day="3"
+                class="day-item w-10 h-10 flex items-center justify-center text-sm rounded-full"
+                >Wed</span
+              >
+              <span
+                data-day="4"
+                class="day-item w-10 h-10 flex items-center justify-center text-sm rounded-full"
+                >Thu</span
+              >
+              <span
+                data-day="5"
+                class="day-item w-10 h-10 flex items-center justify-center text-sm rounded-full"
+                >Fri</span
+              >
+              <span
+                data-day="6"
+                class="day-item w-10 h-10 flex items-center justify-center text-sm rounded-full"
+                >Sat</span
+              >
             </div>
           </div>
         </div>
 
-      </main>
-    </div>
-  </body>
-<script src="JS/beranda.js" defer></script>
+        <div class="grid grid-cols-1 gap-6">
+          <div class="bg-white p-6 rounded-2xl shadow-md">
+            <div class="flex justify-between items-center mb-4">
+              <h3 class="font-bold text-xl text-gray-800">Hafalan</h3>
+              <a
+                href="riwayat.html"
+                class="text-sm text-teal-500 font-medium hover:underline"
+              >
+                Lihat semua
+              </a>
+            </div>
+            <div class="bg-gray-50 border border-gray-200 rounded-xl p-4">
+              <p class="text-gray-700 font-semibold">An-Nas [1-6]</p>
+              <p class="text-sm text-gray-500 mt-1">Selesai</p>
+            </div>
+          </div>
 
+          <div
+            class="bg-teal-500 text-white rounded-2xl p-6 shadow-md flex flex-col justify-center"
+          >
+            <p class="font-bold text-lg">Al-Baqarah [2:2]</p>
+            <p class="text-sm mt-2 opacity-90">
+              "This is the Book about which there is no doubt, a guidance for
+              those conscious of Allah."
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+    <div id="navbar-mobile-placeholder"></div>
+    <script src="JS/beranda.js" defer></script>
+    <script src="JS/loader.js" defer></script>
+  </body>
 </html>
