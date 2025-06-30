@@ -67,10 +67,10 @@
             </form>
 
             <div class="w-full mt-36 space-y-4">
-                <button onclick="window.location.href='beranda.html'" class="w-full bg-brand-teal-600 hover:bg-brand-teal-700 text-white font-bold py-4 px-4 rounded-full transition duration-300 shadow-lg shadow-brand-teal-600/20">
+                <button onclick="window.location.href='beranda.html'" class="w-full bg-brand-teal-600 hover:bg-brand-teal-700 text-white font-bold py-4 px-4 rounded-lg transition duration-300 shadow-lg shadow-brand-teal-600/20">
                     Login
                 </button>
-                <button id="btn-google-signin" class="w-full bg-brand-aqua hover:bg-opacity-90 text-white font-bold py-4 px-4 rounded-full transition duration-300 flex items-center justify-center shadow-lg shadow-brand-aqua/20">
+                <button id="btn-google-signin" class="w-full bg-brand-aqua hover:bg-opacity-90 text-white font-bold py-4 px-4 rounded-lg transition duration-300 flex items-center justify-center shadow-lg shadow-brand-aqua/20">
                     <svg class="w-5 h-5 mr-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48px" height="48px"><path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"></path><path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"></path><path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.223,0-9.651-3.657-11.303-8H6.399C9.656,39.663,16.318,44,24,44z"></path><path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.089,5.571l6.19,5.238C42.021,35.596,44,30.138,44,24C44,22.659,43.862,21.35,43.611,20.083z"></path></svg>
                     Sign in with Google
                 </button>
@@ -81,57 +81,4 @@
     <div id="google-popup" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl shadow-xl p-6 max-w-sm w-full">
             <h2 class="text-xl font-bold text-center text-slate-800">Pilih akun</h2>
-            <p class="text-sm text-slate-500 text-center mt-1 mb-6">untuk melanjutkan ke DepQ</p>
-            
-            <div class="google-account-option flex items-center p-3 rounded-lg hover:bg-gray-100 cursor-pointer">
-                <img src="https://i.pravatar.cc/300" alt="User" class="w-10 h-10 rounded-full">
-                <div class="ml-4">
-                    <p class="font-semibold text-slate-700">Eleonore</p>
-                    <p class="text-sm text-slate-500">eleonore@gmail.com</p>
-                </div>
-            </div>
-
-            <div class="google-account-option flex items-center p-3 mt-2 rounded-lg hover:bg-gray-100 cursor-pointer">
-                <img src="https://i.pravatar.cc/300" alt="User" class="w-10 h-10 rounded-full">
-                <div class="ml-4">
-                    <p class="font-semibold text-slate-700">Pena</p>
-                    <p class="text-sm text-slate-500">pena@gmail.com</p>
-                </div>
-            </div>
-            
-            <div class="google-account-option flex items-center p-3 mt-4 rounded-lg hover:bg-gray-100 cursor-pointer">
-                 <svg class="w-10 h-10 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-                <div class="ml-4">
-                    <p class="font-semibold text-slate-700">Gunakan akun lain</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script>
-        const googleSignInButton = document.getElementById('btn-google-signin');
-        const googlePopup = document.getElementById('google-popup');
-        const accountOptions = document.querySelectorAll('.google-account-option');
-
-        // Tampilkan pop-up saat tombol Google di klik
-        googleSignInButton.addEventListener('click', (e) => {
-            e.preventDefault(); // Mencegah aksi default
-            googlePopup.classList.remove('hidden');
-        });
-
-        // Sembunyikan pop-up saat area luar di klik
-        googlePopup.addEventListener('click', (e) => {
-            if (e.target === googlePopup) {
-                googlePopup.classList.add('hidden');
-            }
-        });
-
-        // Arahkan ke home.html saat salah satu akun di pilih
-        accountOptions.forEach(option => {
-            option.addEventListener('click', () => {
-                window.location.href = 'beranda.html';
-            });
-        });
-    </script>
-
-</body>
-</html>
+            <p class
