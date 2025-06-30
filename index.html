@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DepQ - Onboarding</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'brand-teal': {
+                            '600': '#00838F', // Warna utama untuk tombol
+                            '700': '#006064', // Warna utama untuk teks/logo
+                        },
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Style dasar untuk body */
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+    </style>
+</head>
+<body class="bg-white font-sans">
+
+    <div class="max-w-md mx-auto">
+
+        <div id="onboarding-page" class="min-h-screen flex flex-col justify-between p-8 text-center">
+
+            <div class="text-center mt-20">
+                <h1 class="text-6xl font-extrabold text-brand-teal-700">DepQ</h1>
+            </div>
+
+            <div class="flex-grow flex flex-col justify-center items-center mt-40">
+                <div class="flex items-center space-x-2">
+                    <div class="w-2.5 h-2.5 bg-slate-600 rounded-full"></div>
+                    <div class="w-2.5 h-2.5 bg-slate-300 rounded-full"></div>
+                </div>
+                    
+                <div class="mt-4">
+                    <h2 class="text-2xl font-bold text-slate-800">Hafalan</h2>
+                    <p class="text-slate-500 mt-2">Hafalkan surahmu.</p>
+                </div>
+            </div>
+            
+            <div class="w-full mb-20 ">
+                <button id="btn-lanjut" class="w-full bg-brand-teal-600 hover:bg-brand-teal-700 text-white font-bold py-4 px-4 rounded-lg transition duration-300 shadow-lg shadow-brand-teal-600/20">
+                    Lanjut
+                </button>
+                <button id="btn-lewati" class="w-full text-brand-teal-700 font-bold py-4 px-4 rounded-lg mt-2 transition duration-300">
+                    Lewati
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Fungsi untuk mengarahkan ke halaman onboarding kedua
+        function goToSecondOnboardingPage() {
+            window.location.href = 'onboarding_second.html'; 
+        }
+
+        // Fungsi untuk mengarahkan ke halaman registrasi
+        function goToRegisterPage() {
+            window.location.href = 'register.html'; 
+        }
+
+        // Tambahkan event listener ke tombol
+        document.getElementById('btn-lanjut').addEventListener('click', goToSecondOnboardingPage);
+        document.getElementById('btn-lewati').addEventListener('click', goToRegisterPage);
+    </script>
+
+</body>
+</html>
