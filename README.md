@@ -18,6 +18,8 @@ The goal of DepQ is to provide an easy-to-use platform for students and teachers
 
 - 📱 **Mobile-First Design** – Optimized for smartphones and tablets  
 - 🕌 **Memorization Submission System** – Users can log and track Qur'an recitation submissions  
+- 📖 **Quran API Integration** – Displays Surah information directly from [Santri Koding API](https://quran-api.santrikoding.com/api/surah)  
+- 🕋 **Aladhan API Integration** – Shows daily prayer times for Yogyakarta and other cities  
 - 🔍 **Simple Navigation** – Clean and intuitive interface for all users  
 - 🎨 **TailwindCSS Styling** – Fast, modern, and utility-first CSS framework  
 - 🌙 **Potential Future Dark Mode Support** (planned)
@@ -28,7 +30,10 @@ The goal of DepQ is to provide an easy-to-use platform for students and teachers
 
 - **HTML5** – Structure and content  
 - **TailwindCSS** – Styling and responsive layout  
-- **JavaScript (optional)** – For interactivity (if added later)  
+- **JavaScript** – For API integration and interactivity  
+- **API Sources**:  
+  - [Quran API](https://quran-api.santrikoding.com/api/surah) – Provides Surah data  
+  - [Aladhan API](https://api.aladhan.com/v1/timingsByCity) – Provides prayer timings  
 
 ---
 
