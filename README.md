@@ -8,10 +8,9 @@ The goal of DepQ is to provide an easy-to-use platform for students and teachers
 ---
 
 ## 📸 Preview
-![Preview Website]
-(https://github.com/user-attachments/assets/91f0a7b1-bfaa-4f70-83e6-7707c8aabf9b)
-(https://github.com/user-attachments/assets/fd6cf317-8df5-4071-87ab-5e5929ed625b)
-(https://github.com/user-attachments/assets/db13017e-d45f-4f42-8b78-934254de1484)
+![Preview 1](https://github.com/user-attachments/assets/91f0a7b1-bfaa-4f70-83e6-7707c8aabf9b)  
+![Preview 2](https://github.com/user-attachments/assets/fd6cf317-8df5-4071-87ab-5e5929ed625b)  
+![Preview 3](https://github.com/user-attachments/assets/db13017e-d45f-4f42-8b78-934254de1484)
 
 ---
 
