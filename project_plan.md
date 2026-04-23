@@ -52,7 +52,7 @@ This section outlines the roadmap for implementing advanced features now that th
 
 ### Phase 4: Gamification & Engagement (For Santri)
 *Keep students motivated to continue their memorization journey.*
-- **Voice Recording for Hafalan:** Implement an audio recording feature allowing Santri to record their recitation (hafalan) during setoran submissions. The Ustadz can then examine, play back, and evaluate the audio on their dashboard.
+- **[DONE] Voice Recording for Hafalan:** Implement an audio recording feature allowing Santri to record their recitation (hafalan) during setoran submissions. The Ustadz can then examine, play back, and evaluate the audio on their dashboard.
 - **Streaks & Badges:** Reward students for daily Qur'an reading, consistent setoran submissions, or finishing a Juz.
 - **Real-time Notifications:** Push notifications or in-app alerts reminding students to submit their setoran or instantly notifying them when an Ustadz approves their submission.
 - **Language Customization:** Add a feature to switch between Bahasa Indonesia and English for the UI.
