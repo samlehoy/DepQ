@@ -5,27 +5,28 @@ function Quote() {
   const quoteKeys = Object.keys(quotesData);
 
   return (
-    <>
-      <header className="bg-white shadow-sm p-4 z-10 sticky top-0 flex items-center justify-center relative">
-        <h1 className="text-xl font-bold text-teal-600 text-center">Quote</h1>
-      </header>
+    <div className="px-6 py-8 md:px-10 w-full max-w-3xl mx-auto">
+      <div className="mb-8">
+        <h1 className="text-display-lg text-[var(--ds-primary)] tracking-tight mb-2">Quotes</h1>
+        <p className="text-body-main text-[var(--ds-outline)]">Wisdom from the Qur'an</p>
+      </div>
 
-      <main className="max-w-lg w-full mx-auto p-4 flex-grow space-y-4">
+      <div className="space-y-4">
         {quoteKeys.map((key) => {
           const quote = quotesData[key];
           return (
-            <Link 
+            <Link
               key={key}
               to={`/quote/${key}`}
-              className="block bg-teal-600 text-white p-4 rounded-lg shadow-md hover:bg-teal-700 transition-colors"
+              className="group block glass-card rounded-xl p-5 hover:shadow-lg hover:border-[var(--ds-primary)]/20 transition-all"
             >
-              <h2 className="font-bold text-lg">{quote.title}</h2>
-              <p className="text-sm mt-1">{quote.text}</p>
+              <h2 className="text-body-main font-bold text-[var(--ds-on-surface)] group-hover:text-[var(--ds-primary)] transition-colors">{quote.title}</h2>
+              <p className="text-caption text-[var(--ds-outline)] mt-1 line-clamp-2">{quote.text}</p>
             </Link>
           );
         })}
-      </main>
-    </>
+      </div>
+    </div>
   );
 }
 

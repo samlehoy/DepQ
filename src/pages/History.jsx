@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { ChevronLeft, Loader2 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 import { useAuth } from '../contexts/AuthContext';
 
 function History() {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [setorans, setSetorans] = useState([]);
   const [surahsMap, setSurahsMap] = useState({});
   const [loading, setLoading] = useState(true);
@@ -13,21 +13,17 @@ function History() {
   useEffect(() => {
     const fetchHistory = async () => {
       if (!user) return;
-      
+
       try {
         setLoading(true);
-        // 1. Ambil daftar surah dari Quran API
         const res = await fetch("https://api.quran.com/api/v4/chapters?language=id");
         if (!res.ok) throw new Error("Gagal mengambil data surah");
         const data = await res.json();
-        
+
         const map = {};
-        data.chapters.forEach(c => {
-          map[c.id] = c.name_simple;
-        });
+        data.chapters.forEach(c => { map[c.id] = c.name_simple; });
         setSurahsMap(map);
 
-        // 2. Ambil riwayat dari Supabase
         const { data: historyData, error } = await supabase
           .from('setorans')
           .select('*')
@@ -47,68 +43,80 @@ function History() {
     fetchHistory();
   }, [user]);
 
-  // Helper untuk format tanggal dari "YYYY-MM-DD" ke format Indonesia
   const formatDate = (dateString) => {
     if (!dateString) return '';
     const date = new Date(dateString);
-    return date.toLocaleDateString('id-ID', {
-      day: 'numeric',
-      month: 'short',
-      year: 'numeric'
-    });
+    return date.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
   };
 
   return (
-    <div className="flex-1 flex flex-col items-center">
-      <div className="w-full max-w-lg mx-auto flex-grow">
-        <header className="bg-white shadow-sm p-4 z-10 sticky top-0 flex items-center justify-center relative">
-          <Link
-            to="/setoran"
-            className="absolute left-4 text-teal-600 hover:text-teal-800 p-2 rounded-md transition-colors duration-200 focus:outline-none"
-          >
-            <ChevronLeft className="w-6 h-6" strokeWidth={2.5} />
-          </Link>
-          <h1 className="text-xl font-bold text-teal-600 text-center">
-            Riwayat Hafalan
-          </h1>
-        </header>
+    <div className="px-6 py-8 md:px-10 w-full max-w-3xl mx-auto">
+      {/* Header */}
+      <div className="flex items-center gap-3 mb-8">
+        <button
+          onClick={() => navigate('/setoran')}
+          className="p-2 text-[var(--ds-primary)] hover:bg-[var(--ds-surface-container)] rounded-xl transition-colors"
+        >
+          <span className="material-symbols-outlined">arrow_back</span>
+        </button>
+        <div>
+          <h1 className="text-h2-ui text-[var(--ds-primary)]">Riwayat Hafalan</h1>
+          <p className="text-caption text-[var(--ds-outline)]">Your memorization submission history</p>
+        </div>
+      </div>
 
-        <main className="p-4 space-y-4">
-          {loading ? (
-            <div className="flex justify-center items-center py-10">
-              <Loader2 className="w-8 h-8 animate-spin text-teal-600" />
-            </div>
-          ) : setorans.length === 0 ? (
-            <div className="text-center py-10 text-gray-500">
-              Belum ada riwayat hafalan.
-            </div>
-          ) : (
-            setorans.map((item) => (
-              <div 
-                key={item.id}
-                className="bg-teal-600 rounded-md p-4 shadow-md flex flex-col sm:flex-row items-start sm:items-center justify-between transition-transform transform hover:scale-[1.01] cursor-pointer"
-              >
-                <div className="mb-2 sm:mb-0">
-                  <p className="text-white text-lg font-medium">{surahsMap[item.surat] || 'Surat ' + item.surat}</p>
-                  <p className="text-teal-100 text-sm">ayat: {item.awal_ayat}-{item.akhir_ayat}</p>
-                  <p className="text-teal-100 text-xs mt-1">Muhaffidz: {item.muhaffidz}</p>
+      <div className="space-y-4">
+        {loading ? (
+          <div className="flex items-center justify-center py-12">
+            <span className="material-symbols-outlined animate-spin text-[var(--ds-primary)] text-4xl">progress_activity</span>
+          </div>
+        ) : setorans.length === 0 ? (
+          <div className="glass-card rounded-xl p-8 text-center text-[var(--ds-outline)]">
+            <span className="material-symbols-outlined text-4xl mb-2 block">inbox</span>
+            Belum ada riwayat hafalan.
+          </div>
+        ) : (
+          setorans.map((item) => (
+            <div
+              key={item.id}
+              className="glass-card rounded-xl p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 hover:shadow-lg transition-shadow"
+            >
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-xl bg-[var(--ds-primary-container)] text-[var(--ds-on-primary-container)] flex items-center justify-center font-bold text-sm flex-shrink-0">
+                  <span className="material-symbols-outlined">auto_stories</span>
                 </div>
-                <div className="flex flex-col items-start sm:items-end w-full sm:w-auto">
-                  <p className="text-white text-sm mb-2">{formatDate(item.tanggal)}</p>
-                  <button 
-                    className={`px-5 py-2 rounded-md text-sm font-semibold w-full sm:w-auto text-white focus:outline-none focus:ring-2 focus:ring-opacity-75 shadow-lg transform hover:scale-105 transition-all duration-300 ease-in-out ${
-                      item.mengulang === 'Ya' 
-                        ? 'bg-orange-500 hover:bg-orange-600 focus:ring-orange-400' 
-                        : 'bg-gray-700 hover:bg-gray-800 focus:ring-gray-600'
-                    }`}
-                  >
-                    {item.mengulang === 'Ya' ? 'Mengulang' : 'Lancar'}
-                  </button>
+                <div>
+                  <h3 className="text-body-main font-semibold text-[var(--ds-on-surface)]">
+                    {surahsMap[item.surat] || 'Surat ' + item.surat}
+                  </h3>
+                  <p className="text-caption text-[var(--ds-outline)]">
+                    Ayat {item.awal_ayat} - {item.akhir_ayat} • {item.muhaffidz}
+                  </p>
                 </div>
               </div>
-            ))
-          )}
-        </main>
+
+              <div className="flex items-center gap-3">
+                <span className="text-caption text-[var(--ds-outline)]">{formatDate(item.tanggal)}</span>
+                <span className={`text-[10px] px-2.5 py-1 rounded-md uppercase tracking-wider font-bold flex items-center gap-1 ${
+                  item.status === 'approved'
+                    ? 'bg-[var(--ds-primary)]/10 text-[var(--ds-primary)] border border-[var(--ds-primary)]/20'
+                    : item.status === 'rejected'
+                    ? 'bg-[var(--ds-error)]/10 text-[var(--ds-error)] border border-[var(--ds-error)]/20'
+                    : 'bg-[var(--ds-secondary-container)]/20 text-[var(--ds-secondary)] border border-[var(--ds-secondary)]/20'
+                }`}>
+                  {item.status === 'approved' ? 'Approved' : item.status === 'rejected' ? 'Rejected' : 'Pending'}
+                </span>
+                <span className={`text-[10px] px-2.5 py-1 rounded-md uppercase tracking-wider font-bold ${
+                  item.mengulang === 'Ya'
+                    ? 'bg-[var(--ds-secondary-fixed)]/30 text-[var(--ds-secondary)]'
+                    : 'bg-[var(--ds-primary-fixed)]/30 text-[var(--ds-primary)]'
+                }`}>
+                  {item.mengulang === 'Ya' ? 'Review' : 'New'}
+                </span>
+              </div>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );

@@ -1,5 +1,4 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { Bell, HelpCircle, Info, LogOut, ChevronRight, User } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 
 function Settings() {
@@ -11,79 +10,56 @@ function Settings() {
     navigate('/login');
   };
 
+  const menuItems = [
+    { icon: 'notifications', label: 'Notifikasi', desc: 'Manage notification preferences' },
+    { icon: 'help', label: 'Bantuan & Masukan', desc: 'Get help or send feedback' },
+    { icon: 'info', label: 'Tentang Aplikasi', desc: 'Version and app information' },
+  ];
+
   return (
-    <div className="flex-1 flex flex-col mb-12">
-      <header className="bg-white shadow-sm p-4 z-10 sticky top-0 flex items-center justify-center relative">
-        <h1 className="text-xl font-bold text-teal-600 text-center">Pengaturan</h1>
-      </header>
+    <div className="px-6 py-8 md:px-10 w-full max-w-3xl mx-auto space-y-8">
+      <div>
+        <h1 className="text-display-lg text-[var(--ds-primary)] tracking-tight mb-2">Settings</h1>
+        <p className="text-body-main text-[var(--ds-outline)]">Manage your account and preferences</p>
+      </div>
 
-      <main className="max-w-lg w-full mx-auto p-4 flex-grow space-y-6">
-        {/* Profile Card */}
-        <Link 
-          to="/profile" 
-          className="flex items-center gap-4 bg-white p-4 rounded-2xl shadow-sm border border-gray-100 group hover:bg-teal-50 transition-colors"
-        >
-          <div className="relative w-16 h-16 flex-shrink-0">
-            <img 
-              src="https://i.pravatar.cc/128?u=fatima" 
-              alt="Foto Profil" 
-              className="w-full h-full rounded-full object-cover border-2 border-white shadow-sm"
-              onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/128x128/E0E0E0/FFFFFF?text=FE'; }}
-            />
-          </div>
-          <div className="flex-grow overflow-hidden">
-            <h2 className="text-lg font-bold text-gray-800 group-hover:text-teal-600 transition-colors duration-300 truncate">
-              {user?.user_metadata?.full_name || 'User DepQ'}
-            </h2>
-            <p className="text-sm text-gray-500 truncate">{user?.email || 'email@example.com'}</p>
-          </div>
-          <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-teal-600" />
-        </Link>
-
-        {/* Settings Menu */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-          <button className="w-full flex items-center justify-between p-4 hover:bg-gray-50 transition-colors border-b border-gray-100">
-            <div className="flex items-center gap-4">
-              <div className="bg-teal-50 p-2 rounded-xl text-teal-600">
-                <Bell className="w-5 h-5" />
-              </div>
-              <span className="font-semibold text-gray-700">Notifikasi</span>
-            </div>
-            <ChevronRight className="w-5 h-5 text-gray-400" />
-          </button>
-
-          <button className="w-full flex items-center justify-between p-4 hover:bg-gray-50 transition-colors border-b border-gray-100">
-            <div className="flex items-center gap-4">
-              <div className="bg-teal-50 p-2 rounded-xl text-teal-600">
-                <HelpCircle className="w-5 h-5" />
-              </div>
-              <span className="font-semibold text-gray-700">Bantuan & Masukan</span>
-            </div>
-            <ChevronRight className="w-5 h-5 text-gray-400" />
-          </button>
-          
-          <button className="w-full flex items-center justify-between p-4 hover:bg-gray-50 transition-colors">
-            <div className="flex items-center gap-4">
-              <div className="bg-teal-50 p-2 rounded-xl text-teal-600">
-                <Info className="w-5 h-5" />
-              </div>
-              <span className="font-semibold text-gray-700">Tentang Aplikasi</span>
-            </div>
-            <ChevronRight className="w-5 h-5 text-gray-400" />
-          </button>
+      {/* Profile Card */}
+      <Link to="/profile" className="group glass-card rounded-xl p-5 flex items-center gap-4 hover:shadow-lg transition-all">
+        <div className="w-14 h-14 rounded-full bg-[var(--ds-primary-fixed)]/30 flex items-center justify-center text-[var(--ds-primary)] border border-[var(--ds-primary)]/10 overflow-hidden">
+          <span className="material-symbols-outlined text-3xl">account_circle</span>
         </div>
-        
-        {/* Logout Button */}
-        <div className="pt-4">
-          <button 
-            onClick={handleLogout}
-            className="w-full flex items-center justify-center gap-3 p-4 rounded-2xl shadow-sm bg-white border border-red-100 hover:bg-red-50 transition-colors text-red-600"
-          >
-            <LogOut className="w-5 h-5" />
-            <span className="font-bold">Keluar</span>
-          </button>
+        <div className="flex-grow min-w-0">
+          <h2 className="text-body-main font-bold text-[var(--ds-on-surface)] group-hover:text-[var(--ds-primary)] transition-colors truncate">
+            {user?.user_metadata?.full_name || 'User DepQ'}
+          </h2>
+          <p className="text-caption text-[var(--ds-outline)] truncate">{user?.email || 'email@example.com'}</p>
         </div>
-      </main>
+        <span className="material-symbols-outlined text-[var(--ds-outline-variant)] group-hover:text-[var(--ds-primary)] transition-colors">chevron_right</span>
+      </Link>
+
+      {/* Menu */}
+      <div className="glass-card rounded-xl overflow-hidden">
+        {menuItems.map((item, i) => (
+          <button key={item.label} className={`w-full flex items-center justify-between p-4 hover:bg-[var(--ds-surface-container)] transition-colors ${i < menuItems.length - 1 ? 'border-b border-[var(--ds-outline-variant)]/30' : ''}`}>
+            <div className="flex items-center gap-4">
+              <div className="w-10 h-10 rounded-xl bg-[var(--ds-primary-fixed)]/20 text-[var(--ds-primary)] flex items-center justify-center">
+                <span className="material-symbols-outlined text-[20px]">{item.icon}</span>
+              </div>
+              <div className="text-left">
+                <span className="text-body-main font-semibold text-[var(--ds-on-surface)] block">{item.label}</span>
+                <span className="text-caption text-[var(--ds-outline)]">{item.desc}</span>
+              </div>
+            </div>
+            <span className="material-symbols-outlined text-[var(--ds-outline-variant)]">chevron_right</span>
+          </button>
+        ))}
+      </div>
+
+      {/* Logout */}
+      <button onClick={handleLogout} className="w-full glass-card rounded-xl p-4 flex items-center justify-center gap-3 text-[var(--ds-error)] hover:bg-[var(--ds-error-container)]/30 transition-colors border border-[var(--ds-error)]/10">
+        <span className="material-symbols-outlined">logout</span>
+        <span className="font-bold">Keluar</span>
+      </button>
     </div>
   );
 }

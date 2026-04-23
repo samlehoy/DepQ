@@ -1,57 +1,53 @@
 import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Edit2, ChevronLeft } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { supabase } from '../lib/supabase';
 
 function Profile() {
   const navigate = useNavigate();
   const { user } = useAuth();
-  
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: ''
-  });
+  const [formData, setFormData] = useState({ name: '', email: '', password: '' });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
+  const [bookmarks, setBookmarks] = useState([]);
+  const [loadingBookmarks, setLoadingBookmarks] = useState(true);
 
   useEffect(() => {
     if (user) {
-      setFormData({
-        name: user.user_metadata?.full_name || '',
-        email: user.email || '',
-        password: ''
-      });
+      setFormData({ name: user.user_metadata?.full_name || '', email: user.email || '', password: '' });
+      
+      const fetchBookmarks = async () => {
+        const { data, err } = await supabase
+          .from('bookmarks')
+          .select('*')
+          .eq('user_id', user.id)
+          .order('created_at', { ascending: false });
+          
+        if (data && !err) {
+          setBookmarks(data);
+        }
+        setLoadingBookmarks(false);
+      };
+      fetchBookmarks();
     }
   }, [user]);
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const removeBookmark = async (verseKey) => {
+    await supabase.from('bookmarks').delete().eq('user_id', user.id).eq('verse_key', verseKey);
+    setBookmarks(bookmarks.filter(b => b.verse_key !== verseKey));
   };
+
+  const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleSave = async (e) => {
     e.preventDefault();
-    setError(null);
-    setSuccess(false);
-    setLoading(true);
-
+    setError(null); setSuccess(false); setLoading(true);
     try {
       const updates = {};
-      
-      if (formData.email !== user.email) {
-        updates.email = formData.email;
-      }
-      
-      if (formData.password) {
-        updates.password = formData.password;
-      }
-
-      if (formData.name !== user.user_metadata?.full_name) {
-        updates.data = { full_name: formData.name };
-      }
-
+      if (formData.email !== user.email) updates.email = formData.email;
+      if (formData.password) updates.password = formData.password;
+      if (formData.name !== user.user_metadata?.full_name) updates.data = { full_name: formData.name };
       if (Object.keys(updates).length > 0) {
         const { error: updateError } = await supabase.auth.updateUser(updates);
         if (updateError) throw updateError;
@@ -60,90 +56,105 @@ function Profile() {
       } else {
         navigate('/settings');
       }
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
+    } catch (err) { setError(err.message); } finally { setLoading(false); }
   };
 
-  return (
-    <div className="flex-1 flex flex-col mb-12">
-      <header className="bg-white shadow-sm p-4 z-10 sticky top-0 flex items-center justify-center relative">
-        <Link to="/settings" className="absolute left-4 text-teal-600 hover:text-teal-800 transition-colors">
-          <ChevronLeft className="w-6 h-6" strokeWidth={2.5} />
-        </Link>
-        <h1 className="text-xl font-bold text-teal-600 text-center">Edit Profil</h1>
-      </header>
+  const inputClass = "w-full px-4 py-3.5 rounded-xl bg-[var(--ds-surface-container-lowest)] border border-[var(--ds-outline-variant)]/40 focus:outline-none focus:ring-2 focus:ring-[var(--ds-primary-fixed-dim)] text-[var(--ds-on-surface)]";
 
-      <main className="max-w-lg w-full mx-auto p-6 flex-grow">
-        <div className="relative w-28 h-28 mx-auto mb-8 mt-4">
-          <img 
-            src="https://i.pravatar.cc/128?u=fatima" 
-            alt="Foto Profil" 
-            className="w-full h-full rounded-full object-cover border-4 border-white shadow-md"
-            onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/128x128/E0E0E0/FFFFFF?text=FE'; }}
-          />
-          <button 
-            className="absolute bottom-0 right-0 bg-teal-600 w-8 h-8 rounded-full flex items-center justify-center shadow-md hover:bg-teal-700 transition-colors text-white"
-            title="Ganti Foto"
-          >
-            <Edit2 className="w-4 h-4" />
+  return (
+    <div className="px-6 py-8 md:px-10 w-full max-w-3xl mx-auto">
+      <div className="flex items-center gap-3 mb-8">
+        <button onClick={() => navigate('/settings')} className="p-2 text-[var(--ds-primary)] hover:bg-[var(--ds-surface-container)] rounded-xl transition-colors">
+          <span className="material-symbols-outlined">arrow_back</span>
+        </button>
+        <h1 className="text-h2-ui text-[var(--ds-primary)]">Edit Profil</h1>
+      </div>
+
+      {/* Avatar */}
+      <div className="relative w-24 h-24 mx-auto mb-8">
+        <div className="w-full h-full rounded-full bg-[var(--ds-primary-fixed)]/30 flex items-center justify-center text-[var(--ds-primary)] border-4 border-white shadow-md">
+          <span className="material-symbols-outlined text-5xl">account_circle</span>
+        </div>
+        <button className="absolute bottom-0 right-0 bg-[var(--ds-primary)] w-8 h-8 rounded-full flex items-center justify-center shadow-md text-white">
+          <span className="material-symbols-outlined text-[16px]">edit</span>
+        </button>
+      </div>
+
+      {error && <div className="bg-[var(--ds-error-container)] text-[var(--ds-on-error-container)] p-4 rounded-xl mb-4 text-sm flex items-center gap-2"><span className="material-symbols-outlined text-[18px]">error</span>{error}</div>}
+      {success && <div className="bg-[var(--ds-primary-fixed)]/30 text-[var(--ds-primary)] p-4 rounded-xl mb-4 text-sm flex items-center gap-2"><span className="material-symbols-outlined text-[18px]">check_circle</span>Profil berhasil diperbarui!</div>}
+
+      <form onSubmit={handleSave} className="glass-card rounded-2xl p-6 md:p-8 space-y-5">
+        <div>
+          <label htmlFor="name" className="block text-caption text-[var(--ds-on-surface)] mb-2 uppercase tracking-wider">Nama Lengkap</label>
+          <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} className={inputClass} />
+        </div>
+        <div>
+          <label htmlFor="email" className="block text-caption text-[var(--ds-on-surface)] mb-2 uppercase tracking-wider">E-mail</label>
+          <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} className={inputClass} />
+        </div>
+        <div>
+          <label htmlFor="password" className="block text-caption text-[var(--ds-on-surface)] mb-2 uppercase tracking-wider">Password Baru</label>
+          <input type="password" id="password" name="password" value={formData.password} onChange={handleChange} placeholder="Kosongkan jika tidak ingin mengubah" className={inputClass} />
+        </div>
+        <div className="pt-6 mt-2 border-t border-[var(--ds-outline-variant)]/30">
+          <button type="submit" disabled={loading}
+            className="w-full bg-[var(--ds-primary)] text-white font-bold py-3.5 rounded-xl hover:shadow-lg transition-all shadow-md disabled:opacity-70 flex items-center justify-center gap-2">
+            {loading ? <><span className="material-symbols-outlined animate-spin text-[18px]">progress_activity</span>Menyimpan...</> : 'Simpan Perubahan'}
           </button>
         </div>
+      </form>
 
-        {error && <div className="bg-red-50 text-red-500 p-3 rounded-xl mb-4 text-sm text-center">{error}</div>}
-        {success && <div className="bg-teal-50 text-teal-600 p-3 rounded-xl mb-4 text-sm text-center">Profil berhasil diperbarui!</div>}
-
-        <form onSubmit={handleSave} className="space-y-5 bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-          <div>
-            <label htmlFor="name" className="block text-sm font-semibold text-gray-700 mb-1">Nama Lengkap</label>
-            <input 
-              type="text" 
-              id="name" 
-              name="name" 
-              value={formData.name}
-              onChange={handleChange}
-              className="w-full px-4 py-3 bg-gray-50 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all text-gray-800"
-            />
+      {/* Bookmarks Section */}
+      <div className="mt-12 mb-8">
+        <h2 className="text-h2-ui text-[var(--ds-primary)] mb-6 flex items-center gap-2">
+          <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>bookmark</span>
+          Bookmark Saya
+        </h2>
+        
+        {loadingBookmarks ? (
+          <div className="text-center py-8 text-[var(--ds-outline)] flex items-center justify-center gap-2">
+            <span className="material-symbols-outlined animate-spin">progress_activity</span>
+            Memuat bookmark...
           </div>
-          
-          <div>
-            <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-1">E-mail</label>
-            <input 
-              type="email" 
-              id="email" 
-              name="email" 
-              value={formData.email}
-              onChange={handleChange}
-              className="w-full px-4 py-3 bg-gray-50 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all text-gray-800"
-            />
+        ) : bookmarks.length === 0 ? (
+          <div className="glass-card p-8 text-center rounded-2xl border-dashed border-2 border-[var(--ds-outline-variant)]">
+            <span className="material-symbols-outlined text-4xl text-[var(--ds-outline)] mb-3">bookmark_border</span>
+            <p className="text-[var(--ds-on-surface-variant)] text-body-main">Belum ada ayat yang di-bookmark.</p>
           </div>
-          
-          <div>
-            <label htmlFor="password" className="block text-sm font-semibold text-gray-700 mb-1">Password Baru</label>
-            <input 
-              type="password" 
-              id="password" 
-              name="password" 
-              value={formData.password}
-              onChange={handleChange}
-              placeholder="Kosongkan jika tidak ingin mengubah" 
-              className="w-full px-4 py-3 bg-gray-50 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all text-gray-800"
-            />
+        ) : (
+          <div className="grid gap-4">
+            {bookmarks.map((b) => (
+              <div key={b.id} className="glass-card p-4 md:p-5 rounded-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 hover:shadow-md transition-all border border-[var(--ds-primary)]/10">
+                <div 
+                  className="cursor-pointer"
+                  onClick={() => navigate(`/surah/${b.surah_id}`)}
+                >
+                  <p className="text-[var(--ds-primary)] font-bold text-lg mb-0.5">Surah {b.surah_id}</p>
+                  <p className="text-caption text-[var(--ds-on-surface-variant)] bg-[var(--ds-surface-container)] px-2 py-0.5 rounded-md inline-block">
+                    Ayat {b.verse_key.split(':')[1]}
+                  </p>
+                </div>
+                <div className="flex items-center gap-2 w-full sm:w-auto">
+                  <button 
+                    onClick={() => navigate(`/surah/${b.surah_id}`)}
+                    className="flex-1 sm:flex-none px-4 py-2 rounded-xl bg-[var(--ds-primary-fixed)]/20 text-[var(--ds-primary)] flex items-center justify-center gap-2 hover:bg-[var(--ds-primary)] hover:text-white transition-colors font-medium text-sm"
+                  >
+                    <span className="material-symbols-outlined text-[18px]">menu_book</span>
+                    Baca
+                  </button>
+                  <button 
+                    onClick={() => removeBookmark(b.verse_key)}
+                    className="w-10 h-10 flex-shrink-0 rounded-xl bg-[var(--ds-error-container)]/50 text-[var(--ds-error)] flex items-center justify-center hover:bg-[var(--ds-error)] hover:text-white transition-colors"
+                    title="Hapus Bookmark"
+                  >
+                    <span className="material-symbols-outlined text-[18px]">delete</span>
+                  </button>
+                </div>
+              </div>
+            ))}
           </div>
-
-          <div className="pt-6 mt-2 border-t border-gray-100">
-            <button 
-              type="submit"
-              disabled={loading}
-              className="w-full flex items-center justify-center gap-2 bg-teal-600 hover:bg-teal-700 text-white font-bold py-3.5 px-4 rounded-xl transition duration-300 shadow-md shadow-teal-600/20 disabled:opacity-70"
-            >
-              {loading ? 'Menyimpan...' : 'Simpan Perubahan'}
-            </button>
-          </div>
-        </form>
-      </main>
+        )}
+      </div>
     </div>
   );
 }
