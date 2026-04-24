@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { supabase } from '../lib/supabase';
+import { useStreaksAndBadges } from '../hooks/useStreaksAndBadges';
 
 function Profile() {
   const navigate = useNavigate();
@@ -12,6 +13,7 @@ function Profile() {
   const [success, setSuccess] = useState(false);
   const [bookmarks, setBookmarks] = useState([]);
   const [loadingBookmarks, setLoadingBookmarks] = useState(true);
+  const { streak, earnedBadges, allBadges } = useStreaksAndBadges(user?.id);
 
   useEffect(() => {
     if (user) {
@@ -103,6 +105,53 @@ function Profile() {
           </button>
         </div>
       </form>
+
+      {/* Badges Section */}
+      <div className="mt-12 mb-8">
+        <h2 className="text-h2-ui text-[var(--ds-primary)] mb-2 flex items-center gap-2">
+          <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>emoji_events</span>
+          Pencapaian Saya
+        </h2>
+        <p className="text-caption text-[var(--ds-outline)] mb-6">
+          {earnedBadges.length} dari {allBadges.length} badge diraih • Streak: {streak} hari
+        </p>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+          {allBadges.map((badge) => {
+            const earned = earnedBadges.find(eb => eb.badge_id === badge.id);
+            const isEarned = !!earned;
+            return (
+              <div
+                key={badge.id}
+                className={`rounded-2xl p-4 flex flex-col items-center text-center gap-2 border transition-all duration-300 ${
+                  isEarned
+                    ? 'glass-card border-[var(--ds-primary)]/25 shadow-[var(--shadow-soft)]'
+                    : 'bg-[var(--ds-surface-variant)]/20 border-[var(--ds-outline-variant)]/15 opacity-40 grayscale'
+                }`}
+              >
+                <div className={`w-14 h-14 rounded-full flex items-center justify-center ${
+                  isEarned
+                    ? 'bg-[var(--ds-primary)]/15 text-[var(--ds-primary)]'
+                    : 'bg-[var(--ds-surface-variant)] text-[var(--ds-outline)]'
+                }`}>
+                  <span className="material-symbols-outlined text-[28px]" style={{ fontVariationSettings: isEarned ? "'FILL' 1" : "'FILL' 0" }}>
+                    {badge.icon}
+                  </span>
+                </div>
+                <p className={`text-caption font-semibold leading-tight ${
+                  isEarned ? 'text-[var(--ds-on-surface)]' : 'text-[var(--ds-outline)]'
+                }`}>{badge.title}</p>
+                <p className="text-[10px] text-[var(--ds-outline)] leading-tight">{badge.description}</p>
+                {isEarned && (
+                  <span className="text-[10px] text-[var(--ds-primary)] font-medium mt-1">
+                    {new Date(earned.earned_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })}
+                  </span>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
 
       {/* Bookmarks Section */}
       <div className="mt-12 mb-8">

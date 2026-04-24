@@ -63,13 +63,28 @@ function UstadzDashboard() {
       setActionLoading(id);
       const { error } = await supabase
         .from('setorans')
-        // Using upsert/update semantics, assuming 'notes' column exists or will be added
         .update({ status: status, notes: reviewNotes })
         .eq('id', id);
 
       if (error) {
         console.error("Failed to update status:", error.message);
-        // Note: If it fails because the 'notes' column doesn't exist yet, we still update UI for demo
+      } else {
+        // Send real-time notification to the student
+        const isApproved = status === 'approved';
+        const surahName = surahsMap[selectedSetoran.surat] || `Surat ${selectedSetoran.surat}`;
+        await supabase.from('notifications').insert({
+          user_id: selectedSetoran.user_id,
+          type: isApproved ? 'approval' : 'rejection',
+          title: isApproved
+            ? `Setoran ${surahName} Disetujui!`
+            : `Setoran ${surahName} Perlu Perbaikan`,
+          message: reviewNotes
+            ? reviewNotes
+            : isApproved
+              ? `Ayat ${selectedSetoran.awal_ayat}-${selectedSetoran.akhir_ayat} telah disetujui. Barakallahu fiik!`
+              : `Ayat ${selectedSetoran.awal_ayat}-${selectedSetoran.akhir_ayat} perlu diperbaiki. Silahkan coba lagi.`,
+          metadata: { setoran_id: id, surat: selectedSetoran.surat },
+        });
       }
 
       setSetorans(prev =>

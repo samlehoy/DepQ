@@ -53,8 +53,8 @@ This section outlines the roadmap for implementing advanced features now that th
 ### Phase 4: Gamification & Engagement (For Santri)
 *Keep students motivated to continue their memorization journey.*
 - **[DONE] Voice Recording for Hafalan:** Implement an audio recording feature allowing Santri to record their recitation (hafalan) during setoran submissions. The Ustadz can then examine, play back, and evaluate the audio on their dashboard.
-- **Streaks & Badges:** Reward students for daily Qur'an reading, consistent setoran submissions, or finishing a Juz.
-- **Real-time Notifications:** Push notifications or in-app alerts reminding students to submit their setoran or instantly notifying them when an Ustadz approves their submission.
+- **[DONE] Streaks & Badges:** Reward students for daily Qur'an reading, consistent setoran submissions, or finishing a Juz. Implemented a `badges` and `user_badges` table with 10 badge definitions across 4 categories (streak, submission, quran, general). Created a `useStreaksAndBadges` hook that calculates real consecutive-day streaks and automatically awards badges. Badges are displayed on the Home dashboard and Profile page.
+- **[DONE] Real-time Notifications:** Implemented a full in-app notification system using Supabase Realtime. Created a `notifications` table with RLS, a `NotificationContext` with live subscription via `postgres_changes`, and a polished dropdown panel in the TopBar. Notifications are triggered when an Ustadz approves/rejects a setoran and when a new badge is earned. Supports mark-as-read, mark-all, and delete.
 - **Language Customization:** Add a feature to switch between Bahasa Indonesia and English for the UI.
 
 ---

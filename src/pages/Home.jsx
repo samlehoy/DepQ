@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { supabase } from '../lib/supabase';
+import { useStreaksAndBadges } from '../hooks/useStreaksAndBadges';
 
 function Home() {
   const { user } = useAuth();
@@ -11,7 +12,8 @@ function Home() {
   const [recentSetorans, setRecentSetorans] = useState([]);
   const [surahsMap, setSurahsMap] = useState({});
   const [loading, setLoading] = useState(true);
-  const [stats, setStats] = useState({ totalSetorans: 0, approved: 0, streak: 0 });
+  const [stats, setStats] = useState({ totalSetorans: 0, approved: 0 });
+  const { streak, earnedBadges, allBadges } = useStreaksAndBadges(user?.id);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,7 +41,6 @@ function Home() {
             setStats({
               totalSetorans: setoranData.length,
               approved: setoranData.filter(s => s.status === 'approved').length,
-              streak: 7 // Placeholder
             });
           }
         }
@@ -90,7 +91,7 @@ function Home() {
             </div>
             <div className="bg-[var(--ds-secondary)]/10 text-[var(--ds-secondary)] px-3 py-1.5 rounded-full text-caption flex items-center gap-1.5 border border-[var(--ds-secondary)]/20 shadow-sm">
               <span className="material-symbols-outlined text-[16px] filled" style={{ fontVariationSettings: "'FILL' 1" }}>local_fire_department</span>
-              {stats.streak} Day Streak
+              {streak} Day Streak
             </div>
           </div>
 
@@ -171,6 +172,46 @@ function Home() {
           </button>
         </div>
       </div>
+
+      {/* Badges & Achievements */}
+      <section className="mt-4">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-h2-ui text-[var(--ds-on-surface)]">Achievements</h2>
+          <span className="text-caption text-[var(--ds-outline)]">
+            {earnedBadges.length} / {allBadges.length} Earned
+          </span>
+        </div>
+
+        <div className="flex gap-3 overflow-x-auto pb-4 hide-scrollbar snap-x">
+          {allBadges.map((badge) => {
+            const isEarned = earnedBadges.some(eb => eb.badge_id === badge.id);
+            return (
+              <div
+                key={badge.id}
+                className={`snap-start shrink-0 w-36 rounded-xl p-4 flex flex-col items-center justify-center text-center gap-2 border transition-all duration-300 ${
+                  isEarned
+                    ? 'bg-[var(--ds-primary)]/8 border-[var(--ds-primary)]/25 shadow-[var(--shadow-soft)]'
+                    : 'bg-[var(--ds-surface-variant)]/30 border-[var(--ds-outline-variant)]/20 opacity-45 grayscale'
+                }`}
+              >
+                <div className={`w-12 h-12 rounded-full flex items-center justify-center ${
+                  isEarned
+                    ? 'bg-[var(--ds-primary)]/15 text-[var(--ds-primary)]'
+                    : 'bg-[var(--ds-surface-variant)] text-[var(--ds-outline)]'
+                }`}>
+                  <span className="material-symbols-outlined text-[24px]" style={{ fontVariationSettings: isEarned ? "'FILL' 1" : "'FILL' 0" }}>
+                    {badge.icon}
+                  </span>
+                </div>
+                <p className={`text-caption font-semibold leading-tight ${
+                  isEarned ? 'text-[var(--ds-on-surface)]' : 'text-[var(--ds-outline)]'
+                }`}>{badge.title}</p>
+                <p className="text-[10px] text-[var(--ds-outline)] leading-tight">{badge.description}</p>
+              </div>
+            );
+          })}
+        </div>
+      </section>
 
       {/* Recent Submissions */}
       <section className="mt-4">
