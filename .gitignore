@@ -34,3 +34,8 @@ stitch-assets/
 .eslintcache
 project_plan.mdI
 
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
