@@ -2,9 +2,11 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 import { useAuth } from '../contexts/AuthContext';
+import { useLanguage } from '../contexts/LanguageContext';
 
 function History() {
   const { user } = useAuth();
+  const { t, lang } = useLanguage();
   const navigate = useNavigate();
   const [setorans, setSetorans] = useState([]);
   const [surahsMap, setSurahsMap] = useState({});
@@ -46,7 +48,7 @@ function History() {
   const formatDate = (dateString) => {
     if (!dateString) return '';
     const date = new Date(dateString);
-    return date.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+    return date.toLocaleDateString(lang === 'id' ? 'id-ID' : 'en-US', { day: 'numeric', month: 'short', year: 'numeric' });
   };
 
   return (
@@ -60,8 +62,8 @@ function History() {
           <span className="material-symbols-outlined">arrow_back</span>
         </button>
         <div>
-          <h1 className="text-h2-ui text-[var(--ds-primary)]">Riwayat Hafalan</h1>
-          <p className="text-caption text-[var(--ds-outline)]">Your memorization submission history</p>
+          <h1 className="text-h2-ui text-[var(--ds-primary)]">{t.history_title}</h1>
+          <p className="text-caption text-[var(--ds-outline)]">{t.history_subtitle}</p>
         </div>
       </div>
 
@@ -73,7 +75,7 @@ function History() {
         ) : setorans.length === 0 ? (
           <div className="glass-card rounded-xl p-8 text-center text-[var(--ds-outline)]">
             <span className="material-symbols-outlined text-4xl mb-2 block">inbox</span>
-            Belum ada riwayat hafalan.
+            {t.history_empty}
           </div>
         ) : (
           setorans.map((item) => (
@@ -104,14 +106,14 @@ function History() {
                     ? 'bg-[var(--ds-error)]/10 text-[var(--ds-error)] border border-[var(--ds-error)]/20'
                     : 'bg-[var(--ds-secondary-container)]/20 text-[var(--ds-secondary)] border border-[var(--ds-secondary)]/20'
                 }`}>
-                  {item.status === 'approved' ? 'Approved' : item.status === 'rejected' ? 'Rejected' : 'Pending'}
+                  {item.status === 'approved' ? t.approved : item.status === 'rejected' ? t.rejected : t.pending}
                 </span>
                 <span className={`text-[10px] px-2.5 py-1 rounded-md uppercase tracking-wider font-bold ${
                   item.mengulang === 'Ya'
                     ? 'bg-[var(--ds-secondary-fixed)]/30 text-[var(--ds-secondary)]'
                     : 'bg-[var(--ds-primary-fixed)]/30 text-[var(--ds-primary)]'
                 }`}>
-                  {item.mengulang === 'Ya' ? 'Review' : 'New'}
+                  {item.mengulang === 'Ya' ? t.review : t.new}
                 </span>
               </div>
             </div>

@@ -84,21 +84,78 @@
 }
 
 .dark {
-  --ds-background: #0f1a14;
-  --ds-on-background: #dfe9fa;
-  --ds-surface: #0f1a14;
-  --ds-on-surface: #dfe9fa;
-  --ds-surface-container-lowest: #0a120e;
-  --ds-surface-container-low: #131f18;
-  --ds-surface-container: #1a2b22;
-  --ds-surface-container-high: #21372c;
-  --ds-surface-container-highest: #2a4236;
+  /* Primary Emerald — Dark */
+  --ds-primary: #7fd4b0;
+  --ds-on-primary: #00382a;
   --ds-primary-container: #0b513d;
+  --ds-on-primary-container: #a0f0cc;
+  --ds-primary-fixed: #b0f0d6;
+  --ds-primary-fixed-dim: #7fd4b0;
 
+  /* Secondary Amber — Dark */
+  --ds-secondary: #ffb77c;
+  --ds-on-secondary: #4e2600;
+  --ds-secondary-container: #6e3900;
+  --ds-on-secondary-container: #ffdcc3;
+  --ds-secondary-fixed: #ffdcc3;
+
+  /* Tertiary Warm — Dark */
+  --ds-tertiary: #ffb4a9;
+  --ds-on-tertiary: #3b0907;
+  --ds-tertiary-container: #6b342d;
+  --ds-on-tertiary-container: #ffdad5;
+  --ds-tertiary-fixed: #ffdad5;
+
+  /* Surfaces — Dark */
+  --ds-background: #0f1a14;
+  --ds-on-background: #dfe4dd;
+  --ds-surface: #0f1a14;
+  --ds-on-surface: #dfe4dd;
+  --ds-on-surface-variant: #bfc9c3;
+  --ds-surface-container-lowest: #0a120e;
+  --ds-surface-container-low: #161f1a;
+  --ds-surface-container: #1a2b22;
+  --ds-surface-container-high: #233529;
+  --ds-surface-container-highest: #2e4035;
+  --ds-surface-variant: #404944;
+  --ds-surface-dim: #0f1a14;
+  --ds-surface-tint: #7fd4b0;
+  --ds-inverse-surface: #dfe4dd;
+  --ds-inverse-on-surface: #27313e;
+
+  /* Outline — Dark */
+  --ds-outline: #89938d;
+  --ds-outline-variant: #404944;
+
+  /* Error — Dark */
+  --ds-error: #ffb4ab;
+  --ds-on-error: #690005;
+  --ds-error-container: #93000a;
+  --ds-on-error-container: #ffdad6;
+
+  /* Shadows — Dark */
+  --shadow-card: 0px 4px 6px -1px rgba(0, 0, 0, 0.3), 0px 10px 15px -3px rgba(0, 0, 0, 0.4);
+  --shadow-soft: 0px 4px 6px -1px rgba(0, 0, 0, 0.15), 0px 10px 15px -3px rgba(0, 0, 0, 0.2);
+
+  /* Tailwind bridge */
   --background: var(--ds-background);
   --foreground: var(--ds-on-background);
   --card: var(--ds-surface-container-lowest);
   --card-foreground: var(--ds-on-surface);
+  --popover: var(--ds-surface-container-low);
+  --popover-foreground: var(--ds-on-surface);
+  --primary: var(--ds-primary);
+  --primary-foreground: var(--ds-on-primary);
+  --secondary: var(--ds-secondary);
+  --secondary-foreground: var(--ds-on-secondary);
+  --muted: var(--ds-surface-container);
+  --muted-foreground: var(--ds-outline);
+  --accent: var(--ds-surface-container-high);
+  --accent-foreground: var(--ds-on-surface);
+  --destructive: var(--ds-error);
+  --border: var(--ds-outline-variant);
+  --input: var(--ds-outline-variant);
+  --ring: var(--ds-primary-fixed-dim);
 }
 
 @theme inline {
@@ -131,74 +188,6 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-/* ===== Base Styles ===== */
-html {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-body {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  background-color: var(--ds-background);
-  color: var(--ds-on-background);
-  font-size: 16px;
-  line-height: 1.6;
-}
-
-::selection {
-  background-color: var(--ds-primary-container);
-  color: var(--ds-on-primary-container);
-}
-
-/* ===== Typography System ===== */
-.font-arabic {
-  font-family: 'Noto Serif', serif;
-}
-
-.text-display-lg {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 36px;
-  font-weight: 700;
-  line-height: 1.2;
-}
-
-.text-h2-ui {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 24px;
-  font-weight: 600;
-  line-height: 1.4;
-}
-
-.text-body-main {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 1.6;
-}
-
-.text-body-arabic {
-  font-family: 'Noto Serif', serif;
-  font-size: 28px;
-  font-weight: 400;
-  line-height: 2.2;
-}
-
-.text-h1-arabic {
-  font-family: 'Noto Serif', serif;
-  font-size: 40px;
-  font-weight: 400;
-  line-height: 1.8;
-}
-
-.text-caption {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 1.4;
-  letter-spacing: 0.02em;
-}
-
 /* ===== Glassmorphism Utilities ===== */
 .glass-card {
   background: rgba(255, 255, 255, 0.7);
@@ -207,10 +196,19 @@ body {
   box-shadow: var(--shadow-card);
 }
 
+.dark .glass-card {
+  background: rgba(26, 43, 34, 0.6);
+  border-color: rgba(127, 212, 176, 0.08);
+}
+
 .glass-nav {
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
+}
+
+.dark .glass-nav {
+  background: rgba(15, 26, 20, 0.7);
 }
 
 /* ===== Material Symbols ===== */

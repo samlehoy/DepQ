@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { supabase } from '../lib/supabase';
 import { useStreaksAndBadges } from '../hooks/useStreaksAndBadges';
+import { useLanguage } from '../contexts/LanguageContext';
 
 function Profile() {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ function Profile() {
   const [bookmarks, setBookmarks] = useState([]);
   const [loadingBookmarks, setLoadingBookmarks] = useState(true);
   const { streak, earnedBadges, allBadges } = useStreaksAndBadges(user?.id);
+  const { t, lang } = useLanguage();
 
   useEffect(() => {
     if (user) {
@@ -69,7 +71,7 @@ function Profile() {
         <button onClick={() => navigate('/settings')} className="p-2 text-[var(--ds-primary)] hover:bg-[var(--ds-surface-container)] rounded-xl transition-colors">
           <span className="material-symbols-outlined">arrow_back</span>
         </button>
-        <h1 className="text-h2-ui text-[var(--ds-primary)]">Edit Profil</h1>
+        <h1 className="text-h2-ui text-[var(--ds-primary)]">{t.profile_title}</h1>
       </div>
 
       {/* Avatar */}
@@ -83,11 +85,11 @@ function Profile() {
       </div>
 
       {error && <div className="bg-[var(--ds-error-container)] text-[var(--ds-on-error-container)] p-4 rounded-xl mb-4 text-sm flex items-center gap-2"><span className="material-symbols-outlined text-[18px]">error</span>{error}</div>}
-      {success && <div className="bg-[var(--ds-primary-fixed)]/30 text-[var(--ds-primary)] p-4 rounded-xl mb-4 text-sm flex items-center gap-2"><span className="material-symbols-outlined text-[18px]">check_circle</span>Profil berhasil diperbarui!</div>}
+      {success && <div className="bg-[var(--ds-primary-fixed)]/30 text-[var(--ds-primary)] p-4 rounded-xl mb-4 text-sm flex items-center gap-2"><span className="material-symbols-outlined text-[18px]">check_circle</span>{t.profile_saved}</div>}
 
       <form onSubmit={handleSave} className="glass-card rounded-2xl p-6 md:p-8 space-y-5">
         <div>
-          <label htmlFor="name" className="block text-caption text-[var(--ds-on-surface)] mb-2 uppercase tracking-wider">Nama Lengkap</label>
+          <label htmlFor="name" className="block text-caption text-[var(--ds-on-surface)] mb-2 uppercase tracking-wider">{t.fullName}</label>
           <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} className={inputClass} />
         </div>
         <div>
@@ -95,13 +97,13 @@ function Profile() {
           <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} className={inputClass} />
         </div>
         <div>
-          <label htmlFor="password" className="block text-caption text-[var(--ds-on-surface)] mb-2 uppercase tracking-wider">Password Baru</label>
-          <input type="password" id="password" name="password" value={formData.password} onChange={handleChange} placeholder="Kosongkan jika tidak ingin mengubah" className={inputClass} />
+          <label htmlFor="password" className="block text-caption text-[var(--ds-on-surface)] mb-2 uppercase tracking-wider">{t.newPassword}</label>
+          <input type="password" id="password" name="password" value={formData.password} onChange={handleChange} placeholder={t.leaveBlankPassword} className={inputClass} />
         </div>
         <div className="pt-6 mt-2 border-t border-[var(--ds-outline-variant)]/30">
           <button type="submit" disabled={loading}
             className="w-full bg-[var(--ds-primary)] text-white font-bold py-3.5 rounded-xl hover:shadow-lg transition-all shadow-md disabled:opacity-70 flex items-center justify-center gap-2">
-            {loading ? <><span className="material-symbols-outlined animate-spin text-[18px]">progress_activity</span>Menyimpan...</> : 'Simpan Perubahan'}
+            {loading ? <><span className="material-symbols-outlined animate-spin text-[18px]">progress_activity</span>{t.saving}</> : t.profile_saveChanges}
           </button>
         </div>
       </form>
@@ -110,10 +112,10 @@ function Profile() {
       <div className="mt-12 mb-8">
         <h2 className="text-h2-ui text-[var(--ds-primary)] mb-2 flex items-center gap-2">
           <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>emoji_events</span>
-          Pencapaian Saya
+          {t.profile_myAchievements}
         </h2>
         <p className="text-caption text-[var(--ds-outline)] mb-6">
-          {earnedBadges.length} dari {allBadges.length} badge diraih • Streak: {streak} hari
+          {t.profile_badgesEarned(earnedBadges.length, allBadges.length)} • {t.profile_streak(streak)}
         </p>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -144,7 +146,7 @@ function Profile() {
                 <p className="text-[10px] text-[var(--ds-outline)] leading-tight">{badge.description}</p>
                 {isEarned && (
                   <span className="text-[10px] text-[var(--ds-primary)] font-medium mt-1">
-                    {new Date(earned.earned_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })}
+                    {new Date(earned.earned_at).toLocaleDateString(lang === 'id' ? 'id-ID' : 'en-US', { day: 'numeric', month: 'short', year: 'numeric' })}
                   </span>
                 )}
               </div>
@@ -157,18 +159,18 @@ function Profile() {
       <div className="mt-12 mb-8">
         <h2 className="text-h2-ui text-[var(--ds-primary)] mb-6 flex items-center gap-2">
           <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>bookmark</span>
-          Bookmark Saya
+          {t.profile_myBookmarks}
         </h2>
         
         {loadingBookmarks ? (
           <div className="text-center py-8 text-[var(--ds-outline)] flex items-center justify-center gap-2">
             <span className="material-symbols-outlined animate-spin">progress_activity</span>
-            Memuat bookmark...
+            {t.loading}
           </div>
         ) : bookmarks.length === 0 ? (
           <div className="glass-card p-8 text-center rounded-2xl border-dashed border-2 border-[var(--ds-outline-variant)]">
             <span className="material-symbols-outlined text-4xl text-[var(--ds-outline)] mb-3">bookmark_border</span>
-            <p className="text-[var(--ds-on-surface-variant)] text-body-main">Belum ada ayat yang di-bookmark.</p>
+            <p className="text-[var(--ds-on-surface-variant)] text-body-main">{t.profile_noBookmarks}</p>
           </div>
         ) : (
           <div className="grid gap-4">
@@ -189,12 +191,12 @@ function Profile() {
                     className="flex-1 sm:flex-none px-4 py-2 rounded-xl bg-[var(--ds-primary-fixed)]/20 text-[var(--ds-primary)] flex items-center justify-center gap-2 hover:bg-[var(--ds-primary)] hover:text-white transition-colors font-medium text-sm"
                   >
                     <span className="material-symbols-outlined text-[18px]">menu_book</span>
-                    Baca
+                    {t.profile_read}
                   </button>
                   <button 
                     onClick={() => removeBookmark(b.verse_key)}
                     className="w-10 h-10 flex-shrink-0 rounded-xl bg-[var(--ds-error-container)]/50 text-[var(--ds-error)] flex items-center justify-center hover:bg-[var(--ds-error)] hover:text-white transition-colors"
-                    title="Hapus Bookmark"
+                    title={t.profile_deleteBookmark}
                   >
                     <span className="material-symbols-outlined text-[18px]">delete</span>
                   </button>

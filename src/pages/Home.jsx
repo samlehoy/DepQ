@@ -159,14 +159,14 @@ function Home() {
           {/* New Setoran */}
           <button
             onClick={() => navigate('/setoran')}
-            className="text-left group bg-[var(--ds-primary)] rounded-xl shadow-[0px_10px_15px_-3px_rgba(0,53,39,0.2)] p-6 hover:shadow-[0px_15px_20px_-3px_rgba(0,53,39,0.3)] hover:-translate-y-1 transition-all duration-300 relative overflow-hidden flex items-center justify-between"
+            className="text-left group bg-[var(--ds-primary)] rounded-xl shadow-[0px_10px_15px_-3px_var(--ds-primary-shadow,rgba(0,53,39,0.2))] p-6 hover:shadow-[0px_15px_20px_-3px_var(--ds-primary-shadow,rgba(0,53,39,0.3))] hover:-translate-y-1 transition-all duration-300 relative overflow-hidden flex items-center justify-between"
           >
             <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4xKSIvPjwvc3ZnPg==')] opacity-30" />
             <div className="relative z-10">
-              <h3 className="text-h2-ui text-white mb-1">New Setoran</h3>
+              <h3 className="text-h2-ui text-[var(--ds-on-primary)] mb-1">New Setoran</h3>
               <p className="text-caption text-[var(--ds-primary-fixed-dim)]">Submit your daily memorization</p>
             </div>
-            <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white border border-white/20 backdrop-blur-sm relative z-10">
+            <div className="w-12 h-12 rounded-full bg-[var(--ds-on-primary)]/10 flex items-center justify-center text-[var(--ds-on-primary)] border border-[var(--ds-on-primary)]/20 backdrop-blur-sm relative z-10">
               <span className="material-symbols-outlined">mic</span>
             </div>
           </button>

@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 import { useAuth } from '../contexts/AuthContext';
+import { useLanguage } from '../contexts/LanguageContext';
 
 function Surah() {
   const { id } = useParams();
@@ -15,17 +16,20 @@ function Surah() {
   const [isAutoPlaying, setIsAutoPlaying] = useState(false);
   const [bookmarks, setBookmarks] = useState(new Set());
   const { user } = useAuth();
+  const { t, lang } = useLanguage();
   const audioRef = useRef(null);
+  const translationId = lang === 'id' ? 33 : 85;
 
   useEffect(() => {
     const fetchSurahData = async () => {
       try {
-        const infoRes = await fetch(`https://api.quran.com/api/v4/chapters/${id}?language=id`);
+        const apiLang = lang === 'id' ? 'id' : 'en';
+        const infoRes = await fetch(`https://api.quran.com/api/v4/chapters/${id}?language=${apiLang}`);
         if (!infoRes.ok) throw new Error();
         const infoData = await infoRes.json();
         setSurah(infoData.chapter);
 
-        const versesRes = await fetch(`https://api.quran.com/api/v4/verses/by_chapter/${id}?language=id&words=false&translations=33,57&fields=text_uthmani&per_page=300`);
+        const versesRes = await fetch(`https://api.quran.com/api/v4/verses/by_chapter/${id}?language=${apiLang}&words=false&translations=${translationId},57&fields=text_uthmani&per_page=300`);
         if (!versesRes.ok) throw new Error();
         const versesData = await versesRes.json();
         setVerses(versesData.verses);
@@ -50,7 +54,7 @@ function Surah() {
     };
 
     if (id) fetchSurahData();
-  }, [id]);
+  }, [id, lang, translationId]);
 
   useEffect(() => {
     const fetchBookmarks = async () => {
@@ -70,7 +74,7 @@ function Surah() {
 
   const toggleBookmark = async (verse) => {
     if (!user) {
-      alert("Silakan login untuk menyimpan bookmark.");
+      alert(t.surah_loginToBookmark);
       return;
     }
 
@@ -163,33 +167,33 @@ function Surah() {
   return (
     <div className="flex h-screen overflow-hidden bg-[var(--ds-background)]">
       {/* Side Nav for desktop */}
-      <nav className="bg-emerald-50/50 backdrop-blur-lg h-screen w-64 border-r border-emerald-200/10 hidden md:flex flex-col z-40">
+      <nav className="bg-[var(--ds-surface-container-low)] h-screen w-64 border-r border-[var(--ds-outline-variant)]/20 hidden md:flex flex-col z-40">
         <div className="px-6 py-8">
-          <h1 className="text-xl font-bold text-emerald-800">DepQ Premium</h1>
-          <p className="text-caption text-[var(--ds-primary)] opacity-60 mt-1 uppercase tracking-widest">Memorization Portal</p>
+          <h1 className="text-xl font-bold text-[var(--ds-primary)]">DepQ</h1>
+          <p className="text-caption text-[var(--ds-primary)] opacity-60 mt-1 uppercase tracking-widest">{t.memorization_portal}</p>
         </div>
         <div className="flex flex-col gap-2 py-4 flex-1">
-          <button onClick={() => navigate('/')} className="text-emerald-900/70 mx-4 my-1 px-4 py-3 flex items-center gap-3 hover:bg-emerald-100/50 rounded-xl transition-all text-sm font-medium">
+          <button onClick={() => navigate('/')} className="text-[var(--ds-on-surface-variant)] mx-4 my-1 px-4 py-3 flex items-center gap-3 hover:bg-[var(--ds-surface-container)] hover:text-[var(--ds-on-surface)] rounded-xl transition-all text-sm font-medium">
             <span className="material-symbols-outlined">home</span>
-            Dashboard
+            {t.nav_dashboard}
           </button>
-          <button className="bg-emerald-800 text-white rounded-xl mx-4 my-1 px-4 py-3 flex items-center gap-3 translate-x-1 shadow-md shadow-emerald-900/20 text-sm font-medium">
+          <button className="bg-[var(--ds-primary)] text-[var(--ds-on-primary)] rounded-xl mx-4 my-1 px-4 py-3 flex items-center gap-3 translate-x-1 shadow-md shadow-[var(--ds-primary)]/20 text-sm font-medium">
             <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>auto_stories</span>
-            Holy Qur'an
+            {t.nav_quran}
           </button>
-          <button onClick={() => navigate('/setoran')} className="text-emerald-900/70 mx-4 my-1 px-4 py-3 flex items-center gap-3 hover:bg-emerald-100/50 rounded-xl transition-all text-sm font-medium">
+          <button onClick={() => navigate('/setoran')} className="text-[var(--ds-on-surface-variant)] mx-4 my-1 px-4 py-3 flex items-center gap-3 hover:bg-[var(--ds-surface-container)] hover:text-[var(--ds-on-surface)] rounded-xl transition-all text-sm font-medium">
             <span className="material-symbols-outlined">history_edu</span>
-            Setoran
+            {t.nav_setoran}
           </button>
-          <button onClick={() => navigate('/ustadz')} className="text-emerald-900/70 mx-4 my-1 px-4 py-3 flex items-center gap-3 hover:bg-emerald-100/50 rounded-xl transition-all text-sm font-medium">
+          <button onClick={() => navigate('/ustadz')} className="text-[var(--ds-on-surface-variant)] mx-4 my-1 px-4 py-3 flex items-center gap-3 hover:bg-[var(--ds-surface-container)] hover:text-[var(--ds-on-surface)] rounded-xl transition-all text-sm font-medium">
             <span className="material-symbols-outlined">admin_panel_settings</span>
-            Ustadz Panel
+            {t.nav_ustadzPanel}
           </button>
         </div>
         <div className="px-6 pb-8">
           <button onClick={() => navigate('/setoran')} className="w-full bg-[var(--ds-primary)] text-white py-3 rounded-xl shadow-sm hover:shadow-md transition-all text-caption flex items-center justify-center gap-2">
             <span className="material-symbols-outlined text-[18px]">add</span>
-            New Setoran
+            {t.nav_newSetoran}
           </button>
         </div>
       </nav>
@@ -197,17 +201,17 @@ function Surah() {
       {/* Main Content */}
       <div className="flex-1 flex flex-col h-full overflow-y-auto relative scroll-smooth">
         {/* Top Bar */}
-        <header className="bg-white/80 backdrop-blur-xl sticky top-0 z-50 border-b border-emerald-100/10 shadow-[var(--shadow-card)]">
+        <header className="glass-nav sticky top-0 z-50 border-b border-[var(--ds-outline-variant)]/20 shadow-soft">
           <div className="flex justify-between items-center px-6 py-4 w-full max-w-7xl mx-auto">
             <button onClick={() => navigate('/quran')} className="flex items-center gap-2 text-[var(--ds-primary)] hover:opacity-80 transition-opacity">
               <span className="material-symbols-outlined">arrow_back</span>
-              <span className="text-sm font-medium hidden sm:inline">Back to Surahs</span>
+              <span className="text-sm font-medium hidden sm:inline">{t.surah_backToSurahs}</span>
             </button>
             <div className="flex items-center gap-4">
-              <button className="text-emerald-900 hover:bg-emerald-50/50 transition-colors p-2 rounded-full">
+              <button className="text-[var(--ds-on-surface)] hover:bg-[var(--ds-surface-container)] transition-colors p-2 rounded-full">
                 <span className="material-symbols-outlined">notifications</span>
               </button>
-              <button className="text-emerald-900 hover:bg-emerald-50/50 transition-colors p-2 rounded-full">
+              <button className="text-[var(--ds-on-surface)] hover:bg-[var(--ds-surface-container)] transition-colors p-2 rounded-full">
                 <span className="material-symbols-outlined">account_circle</span>
               </button>
             </div>
@@ -223,7 +227,7 @@ function Surah() {
           {error && (
             <div className="text-center py-20 text-[var(--ds-error)]">
               <span className="material-symbols-outlined text-4xl mb-2 block">error</span>
-              Gagal memuat surah. Periksa koneksi Anda.
+              {t.quran_loadError}
             </div>
           )}
 
@@ -240,9 +244,9 @@ function Surah() {
                   </div>
                   <h1 className="text-display-lg text-[var(--ds-primary)] mb-3">{surah.name_simple}</h1>
                   <p className="text-body-main text-[var(--ds-on-surface-variant)] flex items-center gap-3">
-                    <span>{surah.revelation_place === 'makkah' ? 'Meccan' : 'Medinan'}</span>
+                    <span>{surah.revelation_place === 'makkah' ? t.surah_meccan : t.surah_medinan}</span>
                     <span className="w-1.5 h-1.5 rounded-full bg-[var(--ds-outline-variant)]" />
-                    <span>{surah.verses_count} Verses</span>
+                    <span>{surah.verses_count} {t.surah_verses}</span>
                   </p>
                 </div>
               </section>
@@ -264,13 +268,13 @@ function Surah() {
                         {isAutoPlaying ? 'pause_circle' : 'play_circle'}
                       </span>
                       <span className="hidden sm:inline text-sm font-medium">
-                        {isAutoPlaying ? 'Pause' : 'Play All'}
+                        {isAutoPlaying ? t.surah_pause : t.surah_playAll}
                       </span>
                     </button>
                     <div className="w-px h-6 bg-[var(--ds-outline-variant)] mx-2" />
                     <button className="px-3 py-1.5 text-sm font-medium text-[var(--ds-on-surface)] hover:bg-[var(--ds-surface-container)] rounded-lg transition-colors flex items-center gap-2">
                       <span className="material-symbols-outlined text-[20px]">translate</span>
-                      <span className="hidden sm:inline">Translation</span>
+                      <span className="hidden sm:inline">{t.surah_translation}</span>
                     </button>
                   </div>
                   <div className="flex items-center gap-2">
@@ -334,7 +338,7 @@ function Surah() {
                                   ? 'bg-[var(--ds-primary)] text-white shadow-lg shadow-[var(--ds-primary)]/30'
                                   : 'bg-[var(--ds-primary)]/10 text-[var(--ds-primary)] hover:bg-[var(--ds-primary)] hover:text-white'
                               }`}
-                              title={bookmarks.has(verse.verse_key) ? "Remove Bookmark" : "Add Bookmark"}
+                              title={bookmarks.has(verse.verse_key) ? t.surah_removeBookmark : t.surah_addBookmark}
                             >
                               <span className="material-symbols-outlined text-[16px]" style={{ fontVariationSettings: bookmarks.has(verse.verse_key) ? "'FILL' 1" : "'FILL' 0" }}>
                                 bookmark
@@ -350,11 +354,11 @@ function Surah() {
                         <div className="pl-0 md:pl-14 flex flex-col gap-2">
                           <p
                             className="text-body-main text-[var(--ds-primary)]/80 italic font-medium leading-relaxed"
-                            dangerouslySetInnerHTML={{ __html: cleanTranslation(verse.translations?.find(t => t.resource_id === 57)?.text) }}
+                            dangerouslySetInnerHTML={{ __html: cleanTranslation(verse.translations?.find(tr => tr.resource_id === 57)?.text) }}
                           />
                           <p
                             className="text-body-main text-[var(--ds-on-surface-variant)] leading-relaxed"
-                            dangerouslySetInnerHTML={{ __html: cleanTranslation(verse.translations?.find(t => t.resource_id === 33)?.text) }}
+                            dangerouslySetInnerHTML={{ __html: cleanTranslation(verse.translations?.find(tr => tr.resource_id === translationId)?.text) }}
                           />
                         </div>
                       </div>
@@ -368,22 +372,22 @@ function Surah() {
       </div>
 
       {/* Mobile Bottom Nav */}
-      <nav className="bg-white/70 backdrop-blur-2xl fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-md rounded-3xl border border-emerald-100/20 shadow-2xl shadow-emerald-900/20 flex justify-around items-center px-4 py-2 z-50 md:hidden">
-        <button onClick={() => navigate('/')} className="flex flex-col items-center justify-center text-emerald-900/60 px-4 py-2 text-[11px] font-medium">
+      <nav className="glass-nav fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-md rounded-3xl border border-[var(--ds-outline-variant)]/20 shadow-2xl flex justify-around items-center px-4 py-2 z-50 md:hidden">
+        <button onClick={() => navigate('/')} className="flex flex-col items-center justify-center text-[var(--ds-on-surface-variant)] px-4 py-2 text-[11px] font-medium hover:text-[var(--ds-primary)]">
           <span className="material-symbols-outlined mb-1">dashboard</span>
-          Home
+          {t.nav_home}
         </button>
-        <button className="flex flex-col items-center justify-center bg-emerald-800 text-white rounded-2xl px-5 py-2 scale-110 shadow-md shadow-emerald-900/20 text-[11px] font-medium">
+        <button className="flex flex-col items-center justify-center bg-[var(--ds-primary)] text-[var(--ds-on-primary)] rounded-2xl px-5 py-2 scale-110 shadow-md shadow-[var(--ds-primary)]/20 text-[11px] font-medium">
           <span className="material-symbols-outlined mb-1" style={{ fontVariationSettings: "'FILL' 1" }}>menu_book</span>
-          Reader
+          {t.nav_reader}
         </button>
-        <button onClick={() => navigate('/setoran')} className="flex flex-col items-center justify-center text-emerald-900/60 px-4 py-2 text-[11px] font-medium">
+        <button onClick={() => navigate('/setoran')} className="flex flex-col items-center justify-center text-[var(--ds-on-surface-variant)] px-4 py-2 text-[11px] font-medium hover:text-[var(--ds-primary)]">
           <span className="material-symbols-outlined mb-1">upload_file</span>
-          Submission
+          {t.nav_submission}
         </button>
-        <button onClick={() => navigate('/ustadz')} className="flex flex-col items-center justify-center text-emerald-900/60 px-4 py-2 text-[11px] font-medium">
+        <button onClick={() => navigate('/ustadz')} className="flex flex-col items-center justify-center text-[var(--ds-on-surface-variant)] px-4 py-2 text-[11px] font-medium hover:text-[var(--ds-primary)]">
           <span className="material-symbols-outlined mb-1">group_work</span>
-          Manage
+          {t.nav_manage}
         </button>
       </nav>
       {/* Hidden audio element */}

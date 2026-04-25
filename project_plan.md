@@ -55,8 +55,7 @@ This section outlines the roadmap for implementing advanced features now that th
 - **[DONE] Voice Recording for Hafalan:** Implement an audio recording feature allowing Santri to record their recitation (hafalan) during setoran submissions. The Ustadz can then examine, play back, and evaluate the audio on their dashboard.
 - **[DONE] Streaks & Badges:** Reward students for daily Qur'an reading, consistent setoran submissions, or finishing a Juz. Implemented a `badges` and `user_badges` table with 10 badge definitions across 4 categories (streak, submission, quran, general). Created a `useStreaksAndBadges` hook that calculates real consecutive-day streaks and automatically awards badges. Badges are displayed on the Home dashboard and Profile page.
 - **[DONE] Real-time Notifications:** Implemented a full in-app notification system using Supabase Realtime. Created a `notifications` table with RLS, a `NotificationContext` with live subscription via `postgres_changes`, and a polished dropdown panel in the TopBar. Notifications are triggered when an Ustadz approves/rejects a setoran and when a new badge is earned. Supports mark-as-read, mark-all, and delete.
-- **Language Customization:** Add a feature to switch between Bahasa Indonesia and English for the UI.
-
+- **[DONE] Language Customization:** Implemented a full i18n system with `LanguageContext`, translation files (`src/i18n/id.js`, `src/i18n/en.js`), and a language toggle in Settings. Covers all pages: Login, Register, Home, Setoran, History, Quran, Profile, Settings, TopBar, Sidebar, and BottomNav. Language preference is persisted to localStorage. Default language is Bahasa Indonesia.
+- **[DONE] Quran Language Customization:** Quran chapter list and verse translations now switch based on the app's language setting. Indonesian uses translation ID 33 (Kemenag RI), English uses ID 85 (M.A.S. Abdel Haleem). API `language` param, surah metadata, and all hardcoded UI strings in `Surah.jsx` are now fully language-aware.
+- **[DONE] Dark Mode:** Add a feature to switch between light and dark mode for the UI.
 ---
-> [!TIP]
-> **Next Steps:** With Phase 1 and Phase 2 mostly complete, we should begin Phase 3 by updating the `Surah.jsx` page to fetch and play audio files from the quran.com API, and then implement a `bookmarks` table in Supabase to save user bookmarks.

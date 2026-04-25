@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useLanguage } from '../contexts/LanguageContext';
 
 function Quran() {
   const [surahs, setSurahs] = useState([]);
@@ -7,11 +8,13 @@ function Quran() {
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const { t, lang } = useLanguage();
 
   useEffect(() => {
     const fetchSurahs = async () => {
       try {
-        const res = await fetch("https://api.quran.com/api/v4/chapters?language=id");
+        setLoading(true);
+        const res = await fetch(`https://api.quran.com/api/v4/chapters?language=${lang === 'id' ? 'id' : 'en'}`);
         if (!res.ok) throw new Error();
         const data = await res.json();
         setSurahs(data.chapters);
@@ -23,7 +26,7 @@ function Quran() {
       }
     };
     fetchSurahs();
-  }, []);
+  }, [lang]);
 
   useEffect(() => {
     const q = search.toLowerCase();
@@ -37,8 +40,8 @@ function Quran() {
     <div className="px-6 py-8 md:px-10 w-full max-w-5xl mx-auto">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-display-lg text-[var(--ds-primary)] tracking-tight mb-2">Holy Qur'an</h1>
-        <p className="text-body-main text-[var(--ds-outline)]">Read and memorize the sacred verses</p>
+        <h1 className="text-display-lg text-[var(--ds-primary)] tracking-tight mb-2">{t.quran_title}</h1>
+        <p className="text-body-main text-[var(--ds-outline)]">{t.quran_subtitle}</p>
       </div>
 
       {/* Search */}
@@ -46,7 +49,7 @@ function Quran() {
         <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-[var(--ds-outline)] text-[20px]">search</span>
         <input
           type="text"
-          placeholder="Search surah..."
+          placeholder={t.quran_searchPlaceholder}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           className="w-full pl-12 pr-4 py-4 rounded-xl bg-[var(--ds-surface-container-lowest)] border border-[var(--ds-outline-variant)]/40 focus:outline-none focus:ring-2 focus:ring-[var(--ds-primary-fixed-dim)] focus:border-transparent shadow-[var(--shadow-soft)] text-[var(--ds-on-surface)] placeholder:text-[var(--ds-outline)]"
@@ -63,13 +66,13 @@ function Quran() {
         {error && (
           <div className="text-center py-12 text-[var(--ds-error)]">
             <span className="material-symbols-outlined text-4xl mb-2 block">error</span>
-            Gagal memuat surah. Periksa koneksi Anda.
+            {t.quran_loadError}
           </div>
         )}
         {!loading && !error && filtered.length === 0 && (
           <div className="text-center text-[var(--ds-outline)] py-12">
             <span className="material-symbols-outlined text-4xl mb-2 block">search_off</span>
-            Surah tidak ditemukan.
+            {t.quran_notFound}
           </div>
         )}
 
@@ -88,7 +91,7 @@ function Quran() {
                   {surah.name_simple}
                 </h3>
                 <p className="text-caption text-[var(--ds-outline)] uppercase tracking-wide">
-                  {surah.translated_name.name} • {surah.verses_count} Ayat
+                  {surah.translated_name.name} • {surah.verses_count} {t.quran_ayahs}
                 </p>
               </div>
             </div>
