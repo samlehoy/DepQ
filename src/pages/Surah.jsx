@@ -15,6 +15,10 @@ function Surah() {
   const [playingAudio, setPlayingAudio] = useState(null);
   const [isAutoPlaying, setIsAutoPlaying] = useState(false);
   const [bookmarks, setBookmarks] = useState(new Set());
+  const [showTranslation, setShowTranslation] = useState(true);
+  const [fontIndex, setFontIndex] = useState(1);
+  const arabicFontSizes = ['text-xl sm:text-2xl md:text-3xl', 'text-2xl sm:text-3xl md:text-4xl', 'text-3xl sm:text-4xl md:text-5xl', 'text-4xl sm:text-5xl md:text-6xl'];
+  const bismillahFontSizes = ['text-2xl sm:text-3xl md:text-4xl', 'text-3xl sm:text-4xl md:text-5xl', 'text-4xl sm:text-5xl md:text-6xl', 'text-5xl sm:text-6xl md:text-7xl'];
   const { user } = useAuth();
   const { t, lang } = useLanguage();
   const audioRef = useRef(null);
@@ -272,16 +276,23 @@ function Surah() {
                       </span>
                     </button>
                     <div className="w-px h-6 bg-[var(--ds-outline-variant)] mx-2" />
-                    <button className="px-3 py-1.5 text-sm font-medium text-[var(--ds-on-surface)] hover:bg-[var(--ds-surface-container)] rounded-lg transition-colors flex items-center gap-2">
+                    <button 
+                      onClick={() => setShowTranslation(!showTranslation)}
+                      className={`px-3 py-1.5 text-sm font-medium rounded-lg transition-colors flex items-center gap-2 ${
+                        showTranslation 
+                          ? 'bg-[var(--ds-primary)]/10 text-[var(--ds-primary)] shadow-sm' 
+                          : 'text-[var(--ds-on-surface)] hover:bg-[var(--ds-surface-container)]'
+                      }`}
+                    >
                       <span className="material-symbols-outlined text-[20px]">translate</span>
                       <span className="hidden sm:inline">{t.surah_translation}</span>
                     </button>
                   </div>
                   <div className="flex items-center gap-2">
-                    <button aria-label="Decrease Font" className="p-2 text-[var(--ds-on-surface-variant)] hover:text-[var(--ds-primary)] hover:bg-[var(--ds-surface-container)] rounded-lg transition-colors">
+                    <button onClick={() => setFontIndex(prev => Math.max(0, prev - 1))} aria-label="Decrease Font" className="p-2 text-[var(--ds-on-surface-variant)] hover:text-[var(--ds-primary)] hover:bg-[var(--ds-surface-container)] rounded-lg transition-colors disabled:opacity-30 disabled:cursor-not-allowed" disabled={fontIndex === 0}>
                       <span className="material-symbols-outlined text-[20px]">text_decrease</span>
                     </button>
-                    <button aria-label="Increase Font" className="p-2 text-[var(--ds-on-surface-variant)] hover:text-[var(--ds-primary)] hover:bg-[var(--ds-surface-container)] rounded-lg transition-colors">
+                    <button onClick={() => setFontIndex(prev => Math.min(arabicFontSizes.length - 1, prev + 1))} aria-label="Increase Font" className="p-2 text-[var(--ds-on-surface-variant)] hover:text-[var(--ds-primary)] hover:bg-[var(--ds-surface-container)] rounded-lg transition-colors disabled:opacity-30 disabled:cursor-not-allowed" disabled={fontIndex === arabicFontSizes.length - 1}>
                       <span className="material-symbols-outlined text-[20px]">text_increase</span>
                     </button>
                     <div className="w-px h-6 bg-[var(--ds-outline-variant)] mx-2" />
@@ -297,7 +308,7 @@ function Surah() {
                 {/* Bismillah */}
                 {surah.bismillah_pre && id !== '1' && id !== '9' && (
                   <div className="text-center mb-16">
-                    <p className="text-h1-arabic text-[var(--ds-primary)] leading-loose font-arabic">
+                    <p className={`${bismillahFontSizes[fontIndex]} text-[var(--ds-primary)] leading-loose font-arabic mb-8 transition-all duration-300`}>
                       بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
                     </p>
                   </div>
@@ -346,21 +357,23 @@ function Surah() {
                             </button>
                           </div>
                           <div className="flex-grow text-right">
-                            <p className="text-body-arabic text-[var(--ds-on-surface)] leading-loose tracking-wide font-arabic" dir="rtl">
+                            <p className={`${arabicFontSizes[fontIndex]} text-[var(--ds-on-surface)] leading-[2.5] tracking-wide font-arabic mb-4 transition-all duration-300`} dir="rtl">
                               {verse.text_uthmani}
                             </p>
                           </div>
                         </div>
-                        <div className="pl-0 md:pl-14 flex flex-col gap-2">
-                          <p
-                            className="text-body-main text-[var(--ds-primary)]/80 italic font-medium leading-relaxed"
-                            dangerouslySetInnerHTML={{ __html: cleanTranslation(verse.translations?.find(tr => tr.resource_id === 57)?.text) }}
-                          />
-                          <p
-                            className="text-body-main text-[var(--ds-on-surface-variant)] leading-relaxed"
-                            dangerouslySetInnerHTML={{ __html: cleanTranslation(verse.translations?.find(tr => tr.resource_id === translationId)?.text) }}
-                          />
-                        </div>
+                        {showTranslation && (
+                          <div className="pl-0 md:pl-14 flex flex-col gap-2">
+                            <p
+                              className="text-body-main text-[var(--ds-primary)]/80 italic font-medium leading-relaxed"
+                              dangerouslySetInnerHTML={{ __html: cleanTranslation(verse.translations?.find(tr => tr.resource_id === 57)?.text) }}
+                            />
+                            <p
+                              className="text-body-main text-[var(--ds-on-surface-variant)] leading-relaxed"
+                              dangerouslySetInnerHTML={{ __html: cleanTranslation(verse.translations?.find(tr => tr.resource_id === translationId)?.text) }}
+                            />
+                          </div>
+                        )}
                       </div>
                     </div>
                   ))}

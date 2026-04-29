@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Serif:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Amiri+Quran&display=swap');
 
 @import "tailwindcss";
 
@@ -161,6 +162,7 @@
 @theme inline {
   --font-sans: 'Plus Jakarta Sans', sans-serif;
   --font-serif: 'Noto Serif', serif;
+  --font-arabic: 'Amiri Quran', serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);

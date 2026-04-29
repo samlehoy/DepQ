@@ -96,7 +96,7 @@ function Quran() {
               </div>
             </div>
             <div className="text-right flex items-center gap-2 sm:gap-3 flex-shrink-0">
-              <p className="text-xl sm:text-2xl text-[var(--ds-primary)] font-arabic" dir="rtl">{surah.name_arabic}</p>
+              <p className="text-2xl sm:text-3xl text-[var(--ds-primary)] font-arabic" dir="rtl">{surah.name_arabic}</p>
               <span className="material-symbols-outlined text-[var(--ds-outline-variant)] group-hover:text-[var(--ds-primary)] transition-colors">
                 chevron_right
               </span>
