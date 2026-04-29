@@ -22,20 +22,22 @@ function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
 
-      {/* Protected Routes */}
-      <Route element={<PrivateRoute />}>
-        {/* Surah Reader — standalone immersive layout */}
-        <Route path="/quran/:id" element={<Surah />} />
+      {/* Standalone immersive layout (Public) */}
+      <Route path="/quran/:id" element={<Surah />} />
 
-        {/* Main App Routes — sidebar + topbar + bottom nav */}
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="quran" element={<Quran />} />
+      {/* Main App Routes — sidebar + topbar + bottom nav */}
+      <Route path="/" element={<Layout />}>
+        {/* Public Routes */}
+        <Route index element={<Home />} />
+        <Route path="quran" element={<Quran />} />
+        <Route path="quote" element={<Quote />} />
+        <Route path="quote/:id" element={<QuoteDetail />} />
+        <Route path="settings" element={<Settings />} />
+
+        {/* Protected Routes */}
+        <Route element={<PrivateRoute />}>
           <Route path="setoran" element={<Setoran />} />
           <Route path="history" element={<History />} />
-          <Route path="quote" element={<Quote />} />
-          <Route path="quote/:id" element={<QuoteDetail />} />
-          <Route path="settings" element={<Settings />} />
           <Route path="profile" element={<Profile />} />
           
           {/* Ustadz Only Routes */}

@@ -164,11 +164,15 @@ function TopBar() {
             className="flex items-center gap-3 pl-2 pr-1 py-1 hover:bg-[var(--ds-surface-container)] rounded-full transition-colors cursor-pointer"
           >
             <div className="text-right hidden sm:block">
-              <p className="text-xs font-semibold text-[var(--ds-primary)]">{displayName}</p>
-              <p className="text-[10px] text-[var(--ds-outline)] capitalize">{userRole || 'Loading...'}</p>
+              <p className="text-xs font-semibold text-[var(--ds-primary)]">
+                {user ? displayName : 'Guest'}
+              </p>
+              <p className="text-[10px] text-[var(--ds-outline)] capitalize">
+                {user ? (userRole || 'Loading...') : 'Not logged in'}
+              </p>
             </div>
             <div className="w-9 h-9 rounded-full bg-[var(--ds-primary-fixed)] flex items-center justify-center text-[var(--ds-primary-container)] font-bold overflow-hidden border border-[var(--ds-primary)]/10">
-              <span className="material-symbols-outlined">account_circle</span>
+              <span className="material-symbols-outlined">{user ? 'account_circle' : 'person_off'}</span>
             </div>
           </button>
         </div>

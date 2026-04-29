@@ -51,11 +51,13 @@ function Login() {
           <div>
             <label htmlFor="email" className="block text-caption text-[var(--ds-on-surface)] mb-2 uppercase tracking-wider">{t.email}</label>
             <input type="email" id="email" name="email" required placeholder="you@example.com"
+              defaultValue={import.meta.env.DEV ? import.meta.env.VITE_DEV_EMAIL : ''}
               className="w-full px-4 py-3.5 rounded-xl bg-[var(--ds-surface-container-lowest)] border border-[var(--ds-outline-variant)]/40 focus:outline-none focus:ring-2 focus:ring-[var(--ds-primary-fixed-dim)] text-[var(--ds-on-surface)]" />
           </div>
           <div>
             <label htmlFor="password" className="block text-caption text-[var(--ds-on-surface)] mb-2 uppercase tracking-wider">{t.password}</label>
             <input type="password" id="password" name="password" required placeholder="••••••••••"
+              defaultValue={import.meta.env.DEV ? import.meta.env.VITE_DEV_PASSWORD : ''}
               className="w-full px-4 py-3.5 rounded-xl bg-[var(--ds-surface-container-lowest)] border border-[var(--ds-outline-variant)]/40 focus:outline-none focus:ring-2 focus:ring-[var(--ds-primary-fixed-dim)] text-[var(--ds-on-surface)]" />
           </div>
           <div className="text-right">

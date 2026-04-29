@@ -232,6 +232,12 @@ function Home() {
               <span className="material-symbols-outlined animate-spin text-[var(--ds-primary)]">progress_activity</span>
               <span className="ml-2 text-[var(--ds-outline)]">Loading...</span>
             </div>
+          ) : !user ? (
+            <div className="snap-start shrink-0 w-72 bg-[var(--ds-surface)]/80 backdrop-blur-md rounded-xl shadow-[var(--shadow-soft)] border border-[var(--ds-outline-variant)]/30 p-5 flex flex-col gap-4 items-center justify-center text-center min-h-[160px]">
+              <span className="material-symbols-outlined text-[var(--ds-outline)] text-4xl">lock</span>
+              <p className="text-caption text-[var(--ds-outline)]">Please log in to view your recent submissions.</p>
+              <button onClick={() => navigate('/login')} className="text-caption font-bold text-[var(--ds-primary)] border border-[var(--ds-primary)]/30 px-4 py-1.5 rounded-full hover:bg-[var(--ds-primary)]/10">Log In</button>
+            </div>
           ) : recentSetorans.length === 0 ? (
             <div className="snap-start shrink-0 w-72 bg-[var(--ds-surface)]/80 backdrop-blur-md rounded-xl shadow-[var(--shadow-soft)] border border-[var(--ds-outline-variant)]/30 p-5 flex flex-col gap-4 items-center justify-center text-center min-h-[160px]">
               <span className="material-symbols-outlined text-[var(--ds-outline)] text-4xl">inbox</span>
