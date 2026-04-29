@@ -58,7 +58,10 @@ export const AuthProvider = ({ children }) => {
     return supabase.auth.signUp({
       email,
       password,
-      options
+      options: {
+        ...options,
+        emailRedirectTo: `${window.location.origin}/`,
+      }
     });
   };
 

@@ -58,4 +58,9 @@ This section outlines the roadmap for implementing advanced features now that th
 - **[DONE] Language Customization:** Implemented a full i18n system with `LanguageContext`, translation files (`src/i18n/id.js`, `src/i18n/en.js`), and a language toggle in Settings. Covers all pages: Login, Register, Home, Setoran, History, Quran, Profile, Settings, TopBar, Sidebar, and BottomNav. Language preference is persisted to localStorage. Default language is Bahasa Indonesia.
 - **[DONE] Quran Language Customization:** Quran chapter list and verse translations now switch based on the app's language setting. Indonesian uses translation ID 33 (Kemenag RI), English uses ID 85 (M.A.S. Abdel Haleem). API `language` param, surah metadata, and all hardcoded UI strings in `Surah.jsx` are now fully language-aware.
 - **[DONE] Dark Mode:** Add a feature to switch between light and dark mode for the UI.
+- **PWA:** Add a feature to make the application a progressive web app.
+
+### Bug Fix
+- **Email Confirmation:** Still using localhost for email confirmation link. Need to use the deployed URL.  
+
 ---
