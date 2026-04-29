@@ -66,7 +66,7 @@ function Profile() {
   const inputClass = "w-full px-4 py-3.5 rounded-xl bg-[var(--ds-surface-container-lowest)] border border-[var(--ds-outline-variant)]/40 focus:outline-none focus:ring-2 focus:ring-[var(--ds-primary-fixed-dim)] text-[var(--ds-on-surface)]";
 
   return (
-    <div className="px-6 py-8 md:px-10 w-full max-w-3xl mx-auto">
+    <div className="px-4 py-6 sm:px-6 md:px-10 w-full max-w-3xl mx-auto">
       <div className="flex items-center gap-3 mb-8">
         <button onClick={() => navigate('/settings')} className="p-2 text-[var(--ds-primary)] hover:bg-[var(--ds-surface-container)] rounded-xl transition-colors">
           <span className="material-symbols-outlined">arrow_back</span>
@@ -87,7 +87,7 @@ function Profile() {
       {error && <div className="bg-[var(--ds-error-container)] text-[var(--ds-on-error-container)] p-4 rounded-xl mb-4 text-sm flex items-center gap-2"><span className="material-symbols-outlined text-[18px]">error</span>{error}</div>}
       {success && <div className="bg-[var(--ds-primary-fixed)]/30 text-[var(--ds-primary)] p-4 rounded-xl mb-4 text-sm flex items-center gap-2"><span className="material-symbols-outlined text-[18px]">check_circle</span>{t.profile_saved}</div>}
 
-      <form onSubmit={handleSave} className="glass-card rounded-2xl p-6 md:p-8 space-y-5">
+      <form onSubmit={handleSave} className="glass-card rounded-2xl p-4 sm:p-6 md:p-8 space-y-4 sm:space-y-5">
         <div>
           <label htmlFor="name" className="block text-caption text-[var(--ds-on-surface)] mb-2 uppercase tracking-wider">{t.fullName}</label>
           <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} className={inputClass} />

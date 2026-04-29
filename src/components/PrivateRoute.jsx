@@ -21,7 +21,7 @@ function PrivateRoute() {
           {/* Subtle dark overlay for better contrast */}
           <div className="absolute inset-0 bg-[var(--ds-background)]/60 backdrop-blur-[3px]" />
           
-          <div className="bg-[var(--ds-surface)] p-8 rounded-3xl shadow-[var(--shadow-modal)] max-w-sm w-full text-center border border-[var(--ds-outline-variant)]/30 relative z-10 animate-fade-in-up">
+          <div className="bg-[var(--ds-surface)] p-6 sm:p-8 rounded-2xl sm:rounded-3xl shadow-[var(--shadow-modal)] max-w-sm w-full text-center border border-[var(--ds-outline-variant)]/30 relative z-10 animate-fade-in-up">
             <div className="w-16 h-16 bg-[var(--ds-primary)]/10 rounded-full flex items-center justify-center mx-auto mb-5">
               <span className="material-symbols-outlined text-3xl text-[var(--ds-primary)]" style={{ fontVariationSettings: "'FILL' 1" }}>lock</span>
             </div>

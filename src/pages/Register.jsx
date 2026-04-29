@@ -34,7 +34,7 @@ function Register() {
   };
 
   return (
-    <div className="min-h-screen bg-[var(--ds-background)] flex items-center justify-center p-8">
+    <div className="min-h-screen bg-[var(--ds-background)] flex items-center justify-center p-4 sm:p-8">
       <div className="w-full max-w-md">
         <div className="text-center mb-10">
           <div className="inline-flex items-center gap-2 mb-2">

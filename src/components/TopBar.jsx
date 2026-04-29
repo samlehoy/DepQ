@@ -48,7 +48,7 @@ function TopBar() {
 
   return (
     <header className="glass-nav sticky top-0 z-50 border-b border-[var(--ds-outline-variant)]/20 shadow-soft">
-      <div className="flex justify-between items-center px-6 py-4 w-full max-w-7xl mx-auto">
+      <div className="flex justify-between items-center px-4 sm:px-6 py-3 sm:py-4 w-full max-w-7xl mx-auto">
         {/* Mobile Brand */}
         <div className="flex items-center gap-2 md:hidden">
           <span
@@ -82,7 +82,7 @@ function TopBar() {
 
             {/* Notification Panel */}
             {panelOpen && (
-              <div className="absolute right-0 top-full mt-2 w-80 sm:w-96 bg-[var(--ds-surface-container-lowest)] rounded-2xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.4)] border border-[var(--ds-outline-variant)]/20 overflow-hidden z-[100] animate-in fade-in slide-in-from-top-2 duration-200">
+              <div className="fixed sm:absolute inset-x-2 sm:inset-x-auto sm:right-0 top-16 sm:top-full sm:mt-2 sm:w-96 bg-[var(--ds-surface-container-lowest)] rounded-2xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.4)] border border-[var(--ds-outline-variant)]/20 overflow-hidden z-[100] animate-in fade-in slide-in-from-top-2 duration-200">
                 {/* Header */}
                 <div className="flex items-center justify-between px-5 py-4 border-b border-[var(--ds-outline-variant)]/20">
                   <h3 className="font-bold text-[var(--ds-on-surface)] text-sm">{t.topbar_notifications}</h3>

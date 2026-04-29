@@ -202,7 +202,7 @@ function Surah() {
       <div className="flex-1 flex flex-col h-full overflow-y-auto relative scroll-smooth">
         {/* Top Bar */}
         <header className="glass-nav sticky top-0 z-50 border-b border-[var(--ds-outline-variant)]/20 shadow-soft">
-          <div className="flex justify-between items-center px-6 py-4 w-full max-w-7xl mx-auto">
+          <div className="flex justify-between items-center px-4 sm:px-6 py-3 sm:py-4 w-full max-w-7xl mx-auto">
             <button onClick={() => navigate('/quran')} className="flex items-center gap-2 text-[var(--ds-primary)] hover:opacity-80 transition-opacity">
               <span className="material-symbols-outlined">arrow_back</span>
               <span className="text-sm font-medium hidden sm:inline">{t.surah_backToSurahs}</span>
@@ -234,15 +234,15 @@ function Surah() {
           {!loading && !error && surah && (
             <>
               {/* Surah Header Banner */}
-              <section className="mt-8 px-6 lg:px-10">
-                <div className="bg-[var(--ds-surface-container)] rounded-2xl p-8 relative overflow-hidden flex flex-col items-center justify-center text-center shadow-sm border border-[var(--ds-outline-variant)]/30">
+              <section className="mt-6 sm:mt-8 px-4 sm:px-6 lg:px-10">
+                <div className="bg-[var(--ds-surface-container)] rounded-2xl p-5 sm:p-8 relative overflow-hidden flex flex-col items-center justify-center text-center shadow-sm border border-[var(--ds-outline-variant)]/30">
                   <div className="absolute -top-24 -right-24 opacity-10 pointer-events-none text-[200px] font-arabic text-[var(--ds-primary)]">
                     {surah.name_arabic?.charAt(0) || 'م'}
                   </div>
                   <div className="text-caption text-[var(--ds-primary)] tracking-widest uppercase mb-2">
                     Surah {surah.id}
                   </div>
-                  <h1 className="text-display-lg text-[var(--ds-primary)] mb-3">{surah.name_simple}</h1>
+                  <h1 className="text-xl sm:text-display-lg text-[var(--ds-primary)] mb-2 sm:mb-3">{surah.name_simple}</h1>
                   <p className="text-body-main text-[var(--ds-on-surface-variant)] flex items-center gap-3">
                     <span>{surah.revelation_place === 'makkah' ? t.surah_meccan : t.surah_medinan}</span>
                     <span className="w-1.5 h-1.5 rounded-full bg-[var(--ds-outline-variant)]" />
@@ -252,7 +252,7 @@ function Surah() {
               </section>
 
               {/* Controls Bar */}
-              <section className="sticky top-20 z-40 px-6 lg:px-10 mt-6">
+              <section className="sticky top-14 sm:top-20 z-40 px-4 sm:px-6 lg:px-10 mt-4 sm:mt-6">
                 <div className="bg-[var(--ds-surface-container-lowest)]/80 backdrop-blur-xl border border-[var(--ds-outline-variant)]/40 rounded-xl p-2 flex justify-between items-center shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)]">
                   <div className="flex items-center gap-1">
                     <button 
@@ -293,7 +293,7 @@ function Surah() {
               </section>
 
               {/* Reading Pane */}
-              <section className="mt-12 px-6 lg:px-10">
+              <section className="mt-8 sm:mt-12 px-4 sm:px-6 lg:px-10">
                 {/* Bismillah */}
                 {surah.bismillah_pre && id !== '1' && id !== '9' && (
                   <div className="text-center mb-16">
@@ -309,10 +309,10 @@ function Surah() {
                     <div
                       key={verse.id}
                       id={`verse-${verse.id}`}
-                      className="group relative bg-[var(--ds-surface-container-lowest)] p-6 md:p-8 rounded-2xl shadow-[var(--shadow-soft)] border border-[var(--ds-primary)]/5 hover:border-[var(--ds-primary)]/20 transition-colors"
+                      className="group relative bg-[var(--ds-surface-container-lowest)] p-4 sm:p-6 md:p-8 rounded-2xl shadow-[var(--shadow-soft)] border border-[var(--ds-primary)]/5 hover:border-[var(--ds-primary)]/20 transition-colors"
                     >
                       <div className="flex flex-col gap-6">
-                        <div className="flex justify-between items-start gap-8">
+                        <div className="flex justify-between items-start gap-4 sm:gap-8">
                           <div className="flex-shrink-0 mt-2 flex flex-col gap-3 items-center">
                             <div className="w-10 h-10 rounded-full border border-[var(--ds-outline-variant)] flex items-center justify-center text-caption text-[var(--ds-on-surface-variant)] relative">
                               {verse.verse_number}
@@ -372,7 +372,7 @@ function Surah() {
       </div>
 
       {/* Mobile Bottom Nav */}
-      <nav className="glass-nav fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-md rounded-3xl border border-[var(--ds-outline-variant)]/20 shadow-2xl flex justify-around items-center px-4 py-2 z-50 md:hidden">
+      <nav className="glass-nav fixed bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 w-[92%] max-w-md rounded-2xl sm:rounded-3xl border border-[var(--ds-outline-variant)]/20 shadow-2xl flex justify-around items-center px-2 sm:px-4 py-1.5 sm:py-2 z-50 md:hidden">
         <button onClick={() => navigate('/')} className="flex flex-col items-center justify-center text-[var(--ds-on-surface-variant)] px-4 py-2 text-[11px] font-medium hover:text-[var(--ds-primary)]">
           <span className="material-symbols-outlined mb-1">dashboard</span>
           {t.nav_home}

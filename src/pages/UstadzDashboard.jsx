@@ -143,19 +143,19 @@ function UstadzDashboard() {
   const displayedSetorans = showAllSubmissions ? setorans : setorans.slice(0, 5);
 
   return (
-    <div className="flex-1 overflow-y-auto p-6 md:p-10 space-y-10">
+    <div className="flex-1 overflow-y-auto p-4 sm:p-6 md:p-10 space-y-6 sm:space-y-10">
       {/* Header */}
       <div>
-        <h1 className="text-display-lg text-[var(--ds-primary)]">Assalamu'alaikum, Ustadz.</h1>
+        <h1 className="text-xl sm:text-display-lg text-[var(--ds-primary)]">Assalamu'alaikum, Ustadz.</h1>
         <p className="text-body-main text-[var(--ds-outline)] mt-2">
           Here is the overview of your students' progress today.
         </p>
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
         {/* Total Students */}
-        <div className="glass-card rounded-xl p-6 flex flex-col justify-between h-32 relative overflow-hidden group">
+        <div className="glass-card rounded-xl p-4 sm:p-6 flex flex-col justify-between h-28 sm:h-32 relative overflow-hidden group">
           <div className="absolute -right-4 -top-4 w-24 h-24 bg-[var(--ds-primary-fixed)]/20 rounded-full blur-xl group-hover:bg-[var(--ds-primary-fixed)]/30 transition-colors" />
           <div>
             <p className="text-caption text-[var(--ds-outline)] uppercase tracking-wider">Total Students</p>
@@ -168,7 +168,7 @@ function UstadzDashboard() {
         </div>
 
         {/* Pending Submissions */}
-        <div className="glass-card rounded-xl p-6 flex flex-col justify-between h-32 relative overflow-hidden group">
+        <div className="glass-card rounded-xl p-4 sm:p-6 flex flex-col justify-between h-28 sm:h-32 relative overflow-hidden group">
           <div className="absolute -right-4 -top-4 w-24 h-24 bg-[var(--ds-secondary-fixed)]/20 rounded-full blur-xl group-hover:bg-[var(--ds-secondary-fixed)]/30 transition-colors" />
           <div>
             <p className="text-caption text-[var(--ds-outline)] uppercase tracking-wider">Pending Submissions</p>
@@ -181,7 +181,7 @@ function UstadzDashboard() {
         </div>
 
         {/* Completion Rate */}
-        <div className="glass-card rounded-xl p-6 flex flex-col justify-between h-32 relative overflow-hidden group">
+        <div className="glass-card rounded-xl p-4 sm:p-6 flex flex-col justify-between h-28 sm:h-32 relative overflow-hidden group">
           <div className="absolute -right-4 -top-4 w-24 h-24 bg-[var(--ds-tertiary-fixed)]/20 rounded-full blur-xl group-hover:bg-[var(--ds-tertiary-fixed)]/30 transition-colors" />
           <div>
             <p className="text-caption text-[var(--ds-outline)] uppercase tracking-wider">Approval Rate</p>

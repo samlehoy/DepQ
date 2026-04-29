@@ -189,15 +189,15 @@ function Setoran() {
     } focus:outline-none focus:ring-2 focus:ring-[var(--ds-primary-fixed-dim)] focus:border-transparent text-[var(--ds-on-surface)] placeholder:text-[var(--ds-outline)] transition-all`;
 
   return (
-    <div className="px-6 py-8 md:px-10 w-full max-w-3xl mx-auto">
+    <div className="px-4 py-6 sm:px-6 md:px-10 w-full max-w-3xl mx-auto">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-display-lg text-[var(--ds-primary)] tracking-tight mb-2">New Setoran</h1>
+        <h1 className="text-xl sm:text-display-lg text-[var(--ds-primary)] tracking-tight mb-1 sm:mb-2">New Setoran</h1>
         <p className="text-body-main text-[var(--ds-outline)]">Submit your daily memorization progress</p>
       </div>
 
       {/* Quick Action */}
-      <div className="flex gap-3 mb-8">
+      <div className="flex gap-3 mb-6 sm:mb-8">
         <button
           onClick={() => navigate('/history')}
           className="flex items-center gap-2 px-4 py-2.5 border border-[var(--ds-outline-variant)]/40 text-[var(--ds-primary)] rounded-xl text-caption hover:bg-[var(--ds-surface-container)] transition-colors"
@@ -215,7 +215,7 @@ function Setoran() {
       )}
 
       {/* Form */}
-      <form onSubmit={handleSubmit} className="bg-[var(--ds-surface-container-lowest)] rounded-2xl shadow-[var(--shadow-card)] border border-[var(--ds-primary)]/5 p-6 md:p-8 space-y-5">
+      <form onSubmit={handleSubmit} className="bg-[var(--ds-surface-container-lowest)] rounded-2xl shadow-[var(--shadow-card)] border border-[var(--ds-primary)]/5 p-4 sm:p-6 md:p-8 space-y-4 sm:space-y-5">
         <div>
           <label className="block text-caption text-[var(--ds-on-surface)] mb-2 uppercase tracking-wider">Tanggal Hafalan</label>
           <input

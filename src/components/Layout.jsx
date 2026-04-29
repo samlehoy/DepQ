@@ -10,12 +10,12 @@ function Layout() {
       <Sidebar />
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col min-w-0 h-screen overflow-y-auto">
+      <div className="flex-1 flex flex-col min-w-0 h-screen overflow-y-auto overflow-x-hidden">
         {/* Top Bar */}
         <TopBar />
 
         {/* Page Content */}
-        <main className="flex-1 pb-24 md:pb-0">
+        <main className="flex-1 pb-36 md:pb-0">
           <Outlet />
         </main>
       </div>

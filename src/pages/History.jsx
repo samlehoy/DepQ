@@ -52,7 +52,7 @@ function History() {
   };
 
   return (
-    <div className="px-6 py-8 md:px-10 w-full max-w-3xl mx-auto">
+    <div className="px-4 py-6 sm:px-6 md:px-10 w-full max-w-3xl mx-auto">
       {/* Header */}
       <div className="flex items-center gap-3 mb-8">
         <button
@@ -81,9 +81,9 @@ function History() {
           setorans.map((item) => (
             <div
               key={item.id}
-              className="glass-card rounded-xl p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 hover:shadow-lg transition-shadow"
+              className="glass-card rounded-xl p-4 sm:p-5 flex flex-col gap-3 sm:gap-4 hover:shadow-lg transition-shadow"
             >
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-3 sm:gap-4">
                 <div className="w-12 h-12 rounded-xl bg-[var(--ds-primary-container)] text-[var(--ds-on-primary-container)] flex items-center justify-center font-bold text-sm flex-shrink-0">
                   <span className="material-symbols-outlined">auto_stories</span>
                 </div>
@@ -97,7 +97,7 @@ function History() {
                 </div>
               </div>
 
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2 flex-wrap">
                 <span className="text-caption text-[var(--ds-outline)]">{formatDate(item.tanggal)}</span>
                 <span className={`text-[10px] px-2.5 py-1 rounded-md uppercase tracking-wider font-bold flex items-center gap-1 ${
                   item.status === 'approved'

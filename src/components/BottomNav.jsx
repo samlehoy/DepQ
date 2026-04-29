@@ -21,7 +21,7 @@ function BottomNav() {
   };
 
   return (
-    <nav className="md:hidden glass-nav fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-md rounded-3xl border border-[var(--ds-outline-variant)]/20 shadow-2xl flex justify-around items-center px-4 py-2 z-50">
+    <nav className="md:hidden glass-nav fixed bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 w-[92%] max-w-md rounded-2xl sm:rounded-3xl border border-[var(--ds-outline-variant)]/20 shadow-2xl flex justify-around items-center px-2 sm:px-4 py-1.5 sm:py-2 z-50">
       {navItems.map((item) => (
         <button
           key={item.path}

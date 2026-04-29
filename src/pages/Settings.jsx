@@ -23,9 +23,9 @@ function Settings() {
   ];
 
   return (
-    <div className="px-6 py-8 md:px-10 w-full max-w-3xl mx-auto space-y-8">
+    <div className="px-4 py-6 sm:px-6 md:px-10 w-full max-w-3xl mx-auto space-y-6 sm:space-y-8">
       <div>
-        <h1 className="text-display-lg text-[var(--ds-primary)] tracking-tight mb-2">{t.settings_title}</h1>
+        <h1 className="text-xl sm:text-display-lg text-[var(--ds-primary)] tracking-tight mb-1 sm:mb-2">{t.settings_title}</h1>
         <p className="text-body-main text-[var(--ds-outline)]">{t.settings_subtitle}</p>
       </div>
 

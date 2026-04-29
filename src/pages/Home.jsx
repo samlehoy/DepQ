@@ -65,16 +65,16 @@ function Home() {
   };
 
   return (
-    <div className="px-6 py-8 md:px-10 w-full max-w-7xl mx-auto flex-1 flex flex-col gap-8">
+    <div className="px-4 py-6 sm:px-6 md:px-10 w-full max-w-7xl mx-auto flex-1 flex flex-col gap-6 sm:gap-8">
       {/* Hero Greeting */}
-      <section className="relative overflow-hidden rounded-[2rem] bg-[var(--ds-surface)] p-8 shadow-[var(--shadow-card)] border border-[var(--ds-primary)]/5">
+      <section className="relative overflow-hidden rounded-2xl sm:rounded-[2rem] bg-[var(--ds-surface)] p-5 sm:p-8 shadow-[var(--shadow-card)] border border-[var(--ds-primary)]/5">
         <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--ds-primary)]/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3" />
         <div className="relative z-10 max-w-2xl">
-          <h1 className="text-display-lg text-[var(--ds-primary)] tracking-tight mb-2">
+          <h1 className="text-xl sm:text-display-lg text-[var(--ds-primary)] tracking-tight mb-1 sm:mb-2">
             Assalamu'alaikum, {displayName}
           </h1>
-          <p className="text-body-main text-[var(--ds-outline)] max-w-md">
-            May your heart be illuminated with the light of the Qur'an today. You are making excellent progress.
+          <p className="text-sm sm:text-body-main text-[var(--ds-outline)] max-w-md">
+            May your heart be illuminated with the light of the Qur'an today.
           </p>
         </div>
       </section>
@@ -82,9 +82,9 @@ function Home() {
       {/* Bento Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
         {/* Daily Progress */}
-        <section className="lg:col-span-7 bg-[var(--ds-surface)] rounded-xl shadow-[var(--shadow-card)] border border-[var(--ds-primary)]/10 p-6 flex flex-col justify-between relative overflow-hidden">
+        <section className="lg:col-span-7 bg-[var(--ds-surface)] rounded-xl shadow-[var(--shadow-card)] border border-[var(--ds-primary)]/10 p-4 sm:p-6 flex flex-col justify-between relative overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[var(--ds-secondary-container)] to-[var(--ds-primary-container)]" />
-          <div className="flex justify-between items-start mb-6">
+          <div className="flex justify-between items-start mb-4 sm:mb-6 flex-wrap gap-2">
             <div>
               <h2 className="text-h2-ui text-[var(--ds-on-surface)] mb-1">Daily Progress</h2>
               <p className="text-caption text-[var(--ds-outline)]">Keep up the spiritual momentum</p>
@@ -95,9 +95,9 @@ function Home() {
             </div>
           </div>
 
-          <div className="flex items-center gap-8">
+          <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-8">
             {/* Circular Progress */}
-            <div className="relative w-32 h-32 flex-shrink-0">
+            <div className="relative w-24 h-24 sm:w-32 sm:h-32 flex-shrink-0">
               <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
                 <circle className="text-[var(--ds-surface-variant)]" cx="50" cy="50" r="45" fill="none" stroke="currentColor" strokeWidth="6" />
                 <circle
@@ -115,7 +115,7 @@ function Home() {
             </div>
 
             {/* Progress Bars */}
-            <div className="flex-1 space-y-4">
+            <div className="flex-1 w-full space-y-4">
               <div>
                 <div className="flex justify-between text-caption mb-1">
                   <span className="text-[var(--ds-on-surface)]">Reading Goal</span>
@@ -143,7 +143,7 @@ function Home() {
           {/* Continue Reading */}
           <button
             onClick={() => navigate('/quran/2')}
-            className="text-left group bg-[var(--ds-surface)] rounded-xl shadow-[var(--shadow-card)] border border-[var(--ds-primary)]/10 p-6 hover:border-[var(--ds-primary)]/30 transition-all duration-300 relative overflow-hidden flex items-center justify-between"
+            className="text-left group bg-[var(--ds-surface)] rounded-xl shadow-[var(--shadow-card)] border border-[var(--ds-primary)]/10 p-4 sm:p-6 hover:border-[var(--ds-primary)]/30 transition-all duration-300 relative overflow-hidden flex items-center justify-between"
           >
             <div className="absolute inset-0 bg-gradient-to-br from-[var(--ds-primary)]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
             <div className="relative z-10">
@@ -159,7 +159,7 @@ function Home() {
           {/* New Setoran */}
           <button
             onClick={() => navigate('/setoran')}
-            className="text-left group bg-[var(--ds-primary)] rounded-xl shadow-[0px_10px_15px_-3px_var(--ds-primary-shadow,rgba(0,53,39,0.2))] p-6 hover:shadow-[0px_15px_20px_-3px_var(--ds-primary-shadow,rgba(0,53,39,0.3))] hover:-translate-y-1 transition-all duration-300 relative overflow-hidden flex items-center justify-between"
+            className="text-left group bg-[var(--ds-primary)] rounded-xl shadow-[0px_10px_15px_-3px_var(--ds-primary-shadow,rgba(0,53,39,0.2))] p-4 sm:p-6 hover:shadow-[0px_15px_20px_-3px_var(--ds-primary-shadow,rgba(0,53,39,0.3))] hover:-translate-y-1 transition-all duration-300 relative overflow-hidden flex items-center justify-between"
           >
             <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4xKSIvPjwvc3ZnPg==')] opacity-30" />
             <div className="relative z-10">

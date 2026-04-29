@@ -7,6 +7,10 @@ import { ThemeProvider } from './contexts/ThemeContext.jsx'
 import { LanguageProvider } from './contexts/LanguageContext.jsx'
 import { AuthProvider } from './contexts/AuthContext.jsx'
 import { NotificationProvider } from './contexts/NotificationContext.jsx'
+import { registerSW } from 'virtual:pwa-register'
+
+// Register the PWA service worker
+registerSW({ immediate: true })
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
