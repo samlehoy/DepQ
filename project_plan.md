@@ -59,8 +59,13 @@ This section outlines the roadmap for implementing advanced features now that th
 - **[DONE] Quran Language Customization:** Quran chapter list and verse translations now switch based on the app's language setting. Indonesian uses translation ID 33 (Kemenag RI), English uses ID 85 (M.A.S. Abdel Haleem). API `language` param, surah metadata, and all hardcoded UI strings in `Surah.jsx` are now fully language-aware.
 - **[DONE] Dark Mode:** Add a feature to switch between light and dark mode for the UI.
 - **[DONE] PWA:** Add a feature to make the application a progressive web app.
+- **[DONE] Guest Mode:** Implemented guest mode for users who are not logged in on Login page.
+- **[DONE] Google Account Login:** Implement Google Account login.
+
 
 ### Bug Fix
 - **[DONE] Email Confirmation:** Still using localhost for email confirmation link. Need to use the deployed URL.  
+- **[DONE] Icon:** Icon is not properly displayed when in PWA mode, the resolution is not good, the aspect ratio is not correct is not consistent.
+
 
 ---

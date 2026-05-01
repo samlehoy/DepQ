@@ -35,6 +35,8 @@ const en = {
   passwordMismatch: 'Passwords do not match.',
   passwordTooShort: 'Password must be at least 6 characters.',
   memorization_portal: 'Memorization Portal',
+  continueAsGuest: 'Continue as Guest',
+  continueWithGoogle: 'Continue with Google',
 
   // Navigation
   nav_home: 'Home',

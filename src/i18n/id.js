@@ -35,6 +35,8 @@ const id = {
   passwordMismatch: 'Password tidak cocok.',
   passwordTooShort: 'Password minimal 6 karakter.',
   memorization_portal: 'Portal Hafalan',
+  continueAsGuest: 'Lanjutkan sebagai Tamu',
+  continueWithGoogle: 'Lanjutkan dengan Google',
 
   // Navigation
   nav_home: 'Beranda',

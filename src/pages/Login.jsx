@@ -7,7 +7,7 @@ function Login() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { signIn } = useAuth();
+  const { signIn, signInWithGoogle } = useAuth();
   const { t } = useLanguage();
 
   const handleLogin = async (e) => {
@@ -24,6 +24,15 @@ function Login() {
       setError(err.message);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    try {
+      const { error } = await signInWithGoogle();
+      if (error) throw error;
+    } catch (err) {
+      setError(err.message);
     }
   };
 
@@ -66,6 +75,33 @@ function Login() {
           <button type="submit" disabled={loading}
             className="w-full bg-[var(--ds-primary)] text-white font-bold py-4 rounded-xl hover:shadow-lg transition-all shadow-md disabled:opacity-70 flex items-center justify-center gap-2">
             {loading ? <><span className="material-symbols-outlined animate-spin text-[18px]">progress_activity</span>{t.signingIn}</> : t.signIn}
+          </button>
+          
+          <div className="relative my-6">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-[var(--ds-outline-variant)]/40"></div>
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="px-2 bg-[var(--ds-background)] text-[var(--ds-outline)] text-caption">OR</span>
+            </div>
+          </div>
+
+          <button 
+            type="button" 
+            onClick={handleGoogleLogin}
+            className="w-full bg-[var(--ds-surface)] border border-[var(--ds-outline-variant)] text-[var(--ds-on-surface)] font-bold py-4 rounded-xl hover:bg-[var(--ds-surface-container)] transition-all shadow-sm flex items-center justify-center gap-3"
+          >
+            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" className="w-5 h-5" />
+            {t.continueWithGoogle}
+          </button>
+          
+          <button 
+            type="button" 
+            onClick={() => navigate('/')}
+            className="w-full bg-[var(--ds-surface-container)] text-[var(--ds-on-surface)] font-bold py-4 rounded-xl hover:bg-[var(--ds-surface-container-high)] transition-all flex items-center justify-center gap-2 mt-4"
+          >
+            <span className="material-symbols-outlined text-[20px]">explore</span>
+            {t.continueAsGuest}
           </button>
         </form>
       </div>
