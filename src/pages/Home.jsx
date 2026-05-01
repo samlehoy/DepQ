@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { supabase } from '../lib/supabase';
 import { useStreaksAndBadges } from '../hooks/useStreaksAndBadges';
+import { useProgress } from '../hooks/useProgress';
 
 function Home() {
   const { user } = useAuth();
@@ -14,6 +15,7 @@ function Home() {
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState({ totalSetorans: 0, approved: 0 });
   const { streak, earnedBadges, allBadges } = useStreaksAndBadges(user?.id);
+  const { continueReading, dailyProgress } = useProgress();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -110,7 +112,9 @@ function Home() {
                 />
               </svg>
               <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <span className="text-h2-ui text-[var(--ds-primary)]">75%</span>
+                <span className="text-h2-ui text-[var(--ds-primary)]">
+                  {Math.round(((dailyProgress?.pagesRead || 0) / 20) * 100)}%
+                </span>
               </div>
             </div>
 
@@ -119,19 +123,19 @@ function Home() {
               <div>
                 <div className="flex justify-between text-caption mb-1">
                   <span className="text-[var(--ds-on-surface)]">Reading Goal</span>
-                  <span className="text-[var(--ds-primary)] font-bold">15 / 20 Pages</span>
+                  <span className="text-[var(--ds-primary)] font-bold">{dailyProgress?.pagesRead || 0} / 20 Pages</span>
                 </div>
                 <div className="w-full bg-[var(--ds-surface-variant)] rounded-full h-1.5">
-                  <div className="bg-[var(--ds-primary)] h-1.5 rounded-full shadow-[0_0_5px_rgba(0,53,39,0.4)]" style={{ width: '75%' }} />
+                  <div className="bg-[var(--ds-primary)] h-1.5 rounded-full shadow-[0_0_5px_rgba(0,53,39,0.4)]" style={{ width: `${Math.min(((dailyProgress?.pagesRead || 0) / 20) * 100, 100)}%` }} />
                 </div>
               </div>
               <div>
                 <div className="flex justify-between text-caption mb-1">
                   <span className="text-[var(--ds-on-surface)]">Memorization</span>
-                  <span className="text-[var(--ds-secondary)] font-bold">3 / 5 Ayahs</span>
+                  <span className="text-[var(--ds-secondary)] font-bold">{dailyProgress?.ayahsRead || 0} / 5 Ayahs</span>
                 </div>
                 <div className="w-full bg-[var(--ds-surface-variant)] rounded-full h-1.5">
-                  <div className="bg-[var(--ds-secondary)] h-1.5 rounded-full" style={{ width: '60%' }} />
+                  <div className="bg-[var(--ds-secondary)] h-1.5 rounded-full" style={{ width: `${Math.min(((dailyProgress?.ayahsRead || 0) / 5) * 100, 100)}%` }} />
                 </div>
               </div>
             </div>
@@ -142,14 +146,22 @@ function Home() {
         <div className="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4">
           {/* Continue Reading */}
           <button
-            onClick={() => navigate('/quran/2')}
+            onClick={() => {
+              if (continueReading?.surahId) {
+                navigate(`/quran/${continueReading.surahId}`);
+              } else {
+                navigate('/quran');
+              }
+            }}
             className="text-left group bg-[var(--ds-surface)] rounded-xl shadow-[var(--shadow-card)] border border-[var(--ds-primary)]/10 p-4 sm:p-6 hover:border-[var(--ds-primary)]/30 transition-all duration-300 relative overflow-hidden flex items-center justify-between"
           >
             <div className="absolute inset-0 bg-gradient-to-br from-[var(--ds-primary)]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
             <div className="relative z-10">
               <p className="text-caption text-[var(--ds-outline)] mb-1">Continue Reading</p>
-              <h3 className="text-h2-ui text-[var(--ds-on-surface)]">Al-Baqarah</h3>
-              <p className="text-body-main text-[var(--ds-primary)] mt-1">Ayah 282 - 286</p>
+              <h3 className="text-h2-ui text-[var(--ds-on-surface)]">{continueReading?.surahName || 'Start Reading'}</h3>
+              <p className="text-body-main text-[var(--ds-primary)] mt-1">
+                {continueReading?.ayahNumber ? `Ayah ${continueReading.ayahNumber}` : 'Tap to explore the Qur\'an'}
+              </p>
             </div>
             <div className="w-12 h-12 rounded-full bg-[var(--ds-surface-container-high)] flex items-center justify-center text-[var(--ds-primary)] group-hover:scale-110 group-hover:bg-[var(--ds-primary)] group-hover:text-white transition-all duration-300 shadow-sm relative z-10">
               <span className="material-symbols-outlined">play_arrow</span>

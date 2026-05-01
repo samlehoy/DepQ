@@ -65,7 +65,9 @@ This section outlines the roadmap for implementing advanced features now that th
 
 ### Bug Fix
 - **[DONE] Email Confirmation:** Still using localhost for email confirmation link. Need to use the deployed URL.  
-- **[DONE] Icon:** Icon is not properly displayed when in PWA mode, the resolution is not good, the aspect ratio is not correct is not consistent.
-
+- **[DONE] Kelola navigation is visible for the user outside Ustadz while in Qur'an page:** Fixed by conditionally rendering the Kelola button based on userRole in Surah.jsx.
+- **[DONE] Settings Page Adjustment:** Fixed by tweaking flex properties (added shrink-0) and restyling the language buttons to stack flag and text vertically on mobile view.
+- **[DONE] Icon:** Fixed PWA maskable icon aggressive cropping on Android by changing icon purpose from 'any maskable' to 'any'.
+- **[DONE] Daily Progress and Continue Reading:** Fixed by implementing a `useProgress` hook that syncs to localStorage for guests and a `user_progress` table in Supabase for logged-in users. `Home.jsx` and `Surah.jsx` updated to consume the hook.
 
 ---

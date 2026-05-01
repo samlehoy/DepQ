@@ -78,23 +78,23 @@ function Settings() {
               <span className="text-caption text-[var(--ds-outline)]">{languages[lang].flag} {languages[lang].label}</span>
             </div>
           </div>
-          <span className={`material-symbols-outlined text-[var(--ds-outline-variant)] transition-transform duration-200 ${showLangPicker ? 'rotate-180' : ''}`}>expand_more</span>
+          <span className={`material-symbols-outlined shrink-0 text-[var(--ds-outline-variant)] transition-transform duration-200 ${showLangPicker ? 'rotate-180' : ''}`}>expand_more</span>
         </button>
 
         {showLangPicker && (
-          <div className="border-t border-[var(--ds-outline-variant)]/20 px-4 py-3 flex gap-3">
+          <div className="border-t border-[var(--ds-outline-variant)]/20 px-2 sm:px-4 py-3 flex gap-2 sm:gap-3">
             {Object.entries(languages).map(([key, val]) => (
               <button
                 key={key}
                 onClick={() => { switchLanguage(key); setShowLangPicker(false); }}
-                className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl font-medium text-sm transition-all duration-200 ${
+                className={`flex-1 flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 py-3 px-2 rounded-xl font-medium text-[13px] sm:text-sm transition-all duration-200 ${
                   lang === key
                     ? 'bg-[var(--ds-primary)] text-white shadow-md'
                     : 'bg-[var(--ds-surface-container)] text-[var(--ds-on-surface-variant)] hover:bg-[var(--ds-surface-container-highest)]'
                 }`}
               >
-                <span className="text-lg">{val.flag}</span>
-                {val.label}
+                <span className="text-xl sm:text-lg leading-none">{val.flag}</span>
+                <span className="text-center leading-tight">{val.label}</span>
               </button>
             ))}
           </div>
@@ -118,7 +118,7 @@ function Settings() {
         {/* Toggle Switch UI */}
         <button 
           onClick={toggleTheme}
-          className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-300 focus:outline-none ${theme === 'dark' ? 'bg-[var(--ds-primary)]' : 'bg-[var(--ds-outline-variant)]/50'}`}
+          className={`relative inline-flex h-6 w-11 shrink-0 items-center rounded-full transition-colors duration-300 focus:outline-none ${theme === 'dark' ? 'bg-[var(--ds-primary)]' : 'bg-[var(--ds-outline-variant)]/50'}`}
         >
           <span className="sr-only">Toggle Dark Mode</span>
           <span 
@@ -140,7 +140,7 @@ function Settings() {
                 <span className="text-caption text-[var(--ds-outline)]">{item.desc}</span>
               </div>
             </div>
-            <span className="material-symbols-outlined text-[var(--ds-outline-variant)]">chevron_right</span>
+            <span className="material-symbols-outlined text-[var(--ds-outline-variant)] shrink-0">chevron_right</span>
           </button>
         ))}
       </div>

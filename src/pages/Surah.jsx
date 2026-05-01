@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 import { useAuth } from '../contexts/AuthContext';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useProgress } from '../hooks/useProgress';
 
 function Surah() {
   const { id } = useParams();
@@ -19,8 +20,9 @@ function Surah() {
   const [fontIndex, setFontIndex] = useState(1);
   const arabicFontSizes = ['text-xl sm:text-2xl md:text-3xl', 'text-2xl sm:text-3xl md:text-4xl', 'text-3xl sm:text-4xl md:text-5xl', 'text-4xl sm:text-5xl md:text-6xl'];
   const bismillahFontSizes = ['text-2xl sm:text-3xl md:text-4xl', 'text-3xl sm:text-4xl md:text-5xl', 'text-4xl sm:text-5xl md:text-6xl', 'text-5xl sm:text-6xl md:text-7xl'];
-  const { user } = useAuth();
+  const { user, userRole } = useAuth();
   const { t, lang } = useLanguage();
+  const { updateContinueReading, recordAyahRead } = useProgress();
   const audioRef = useRef(null);
   const translationId = lang === 'id' ? 33 : 85;
 
@@ -32,6 +34,7 @@ function Surah() {
         if (!infoRes.ok) throw new Error();
         const infoData = await infoRes.json();
         setSurah(infoData.chapter);
+        updateContinueReading(id, null, infoData.chapter.name_simple);
 
         const versesRes = await fetch(`https://api.quran.com/api/v4/verses/by_chapter/${id}?language=${apiLang}&words=false&translations=${translationId},57&fields=text_uthmani&per_page=300`);
         if (!versesRes.ok) throw new Error();
@@ -118,6 +121,11 @@ function Surah() {
       audioRef.current.play();
       setPlayingAudio(verse.id);
       
+      if (surah) {
+        updateContinueReading(id, verse.verse_number, surah.name_simple);
+        recordAyahRead();
+      }
+
       const el = document.getElementById(`verse-${verse.id}`);
       if (el) {
         el.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -398,10 +406,12 @@ function Surah() {
           <span className="material-symbols-outlined mb-1">upload_file</span>
           {t.nav_submission}
         </button>
-        <button onClick={() => navigate('/ustadz')} className="flex flex-col items-center justify-center text-[var(--ds-on-surface-variant)] px-4 py-2 text-[11px] font-medium hover:text-[var(--ds-primary)]">
-          <span className="material-symbols-outlined mb-1">group_work</span>
-          {t.nav_manage}
-        </button>
+        {userRole === 'ustadz' && (
+          <button onClick={() => navigate('/ustadz')} className="flex flex-col items-center justify-center text-[var(--ds-on-surface-variant)] px-4 py-2 text-[11px] font-medium hover:text-[var(--ds-primary)]">
+            <span className="material-symbols-outlined mb-1">group_work</span>
+            {t.nav_manage}
+          </button>
+        )}
       </nav>
       {/* Hidden audio element */}
       <audio ref={audioRef} onEnded={handleAudioEnded} />
