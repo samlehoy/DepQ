@@ -32,7 +32,7 @@ function Settings() {
       {/* Profile Card / Login Prompt */}
       {user ? (
         <Link to="/profile" className="group glass-card rounded-xl p-5 flex items-center gap-4 hover:shadow-lg transition-all">
-          <div className="w-14 h-14 rounded-full bg-[var(--ds-primary-fixed)]/30 flex items-center justify-center text-[var(--ds-primary)] border border-[var(--ds-primary)]/10 overflow-hidden">
+          <div className="w-14 h-14 shrink-0 rounded-full bg-[var(--ds-primary-fixed)]/30 flex items-center justify-center text-[var(--ds-primary)] border border-[var(--ds-primary)]/10 overflow-hidden">
             <span className="material-symbols-outlined text-3xl">account_circle</span>
           </div>
           <div className="flex-grow min-w-0">
@@ -46,7 +46,7 @@ function Settings() {
       ) : (
         <div className="group glass-card rounded-xl p-5 flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left justify-between">
           <div className="flex flex-col sm:flex-row items-center gap-4">
-            <div className="w-14 h-14 rounded-full bg-[var(--ds-surface-variant)] flex items-center justify-center text-[var(--ds-outline)] border border-[var(--ds-outline-variant)]/20">
+            <div className="w-14 h-14 shrink-0 rounded-full bg-[var(--ds-surface-variant)] flex items-center justify-center text-[var(--ds-outline)] border border-[var(--ds-outline-variant)]/20">
               <span className="material-symbols-outlined text-3xl">person_off</span>
             </div>
             <div>
@@ -70,7 +70,7 @@ function Settings() {
           className="w-full flex items-center justify-between p-4 hover:bg-[var(--ds-surface-container)] transition-colors"
         >
           <div className="flex items-center gap-4">
-            <div className="w-10 h-10 rounded-xl bg-[var(--ds-primary-fixed)]/20 text-[var(--ds-primary)] flex items-center justify-center">
+            <div className="w-10 h-10 shrink-0 rounded-xl bg-[var(--ds-primary-fixed)]/20 text-[var(--ds-primary)] flex items-center justify-center">
               <span className="material-symbols-outlined text-[20px]">translate</span>
             </div>
             <div className="text-left">
@@ -104,7 +104,7 @@ function Settings() {
       {/* Theme Switcher */}
       <div className="glass-card rounded-xl overflow-hidden p-4 flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <div className="w-10 h-10 rounded-xl bg-[var(--ds-primary-fixed)]/20 text-[var(--ds-primary)] flex items-center justify-center">
+          <div className="w-10 h-10 shrink-0 rounded-xl bg-[var(--ds-primary-fixed)]/20 text-[var(--ds-primary)] flex items-center justify-center">
             <span className="material-symbols-outlined text-[20px]">
               {theme === 'dark' ? 'dark_mode' : 'light_mode'}
             </span>
@@ -132,7 +132,7 @@ function Settings() {
         {menuItems.map((item, i) => (
           <button key={item.label} className={`w-full flex items-center justify-between p-4 hover:bg-[var(--ds-surface-container)] transition-colors ${i < menuItems.length - 1 ? 'border-b border-[var(--ds-outline-variant)]/30' : ''}`}>
             <div className="flex items-center gap-4">
-              <div className="w-10 h-10 rounded-xl bg-[var(--ds-primary-fixed)]/20 text-[var(--ds-primary)] flex items-center justify-center">
+              <div className="w-10 h-10 shrink-0 rounded-xl bg-[var(--ds-primary-fixed)]/20 text-[var(--ds-primary)] flex items-center justify-center">
                 <span className="material-symbols-outlined text-[20px]">{item.icon}</span>
               </div>
               <div className="text-left">

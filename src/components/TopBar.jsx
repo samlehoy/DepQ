@@ -12,7 +12,7 @@ const NOTIF_ICONS = {
   info: { icon: 'info', color: 'var(--ds-primary)' },
 };
 
-function TopBar() {
+function TopBar({ leftContent }) {
   const { user, userRole } = useAuth();
   const { notifications, unreadCount, markAsRead, markAllAsRead, deleteNotification } = useNotifications();
   const { t } = useLanguage();
@@ -49,20 +49,24 @@ function TopBar() {
   return (
     <header className="glass-nav sticky top-0 z-50 border-b border-[var(--ds-outline-variant)]/20 shadow-soft">
       <div className="flex justify-between items-center px-4 sm:px-6 py-3 sm:py-4 w-full max-w-7xl mx-auto">
-        {/* Mobile Brand */}
-        <div className="flex items-center gap-2 md:hidden">
-          <span
-            className="material-symbols-outlined text-[var(--ds-primary)]"
-            style={{ fontVariationSettings: "'FILL' 1" }}
-          >
-            menu_book
-          </span>
-          <span className="text-2xl font-extrabold text-[var(--ds-primary)] tracking-tight">
-            DepQ
-          </span>
-        </div>
-        {/* Desktop spacer */}
-        <div className="hidden md:block" />
+        {leftContent ? leftContent : (
+          <>
+            {/* Mobile Brand */}
+            <div className="flex items-center gap-2 md:hidden">
+              <span
+                className="material-symbols-outlined text-[var(--ds-primary)]"
+                style={{ fontVariationSettings: "'FILL' 1" }}
+              >
+                menu_book
+              </span>
+              <span className="text-2xl font-extrabold text-[var(--ds-primary)] tracking-tight">
+                DepQ
+              </span>
+            </div>
+            {/* Desktop spacer */}
+            <div className="hidden md:block" />
+          </>
+        )}
 
         {/* Right actions */}
         <div className="flex items-center gap-2">

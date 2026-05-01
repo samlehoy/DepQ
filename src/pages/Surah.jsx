@@ -4,6 +4,7 @@ import { supabase } from '../lib/supabase';
 import { useAuth } from '../contexts/AuthContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useProgress } from '../hooks/useProgress';
+import TopBar from '../components/TopBar';
 
 function Surah() {
   const { id } = useParams();
@@ -213,22 +214,14 @@ function Surah() {
       {/* Main Content */}
       <div className="flex-1 flex flex-col h-full overflow-y-auto relative scroll-smooth">
         {/* Top Bar */}
-        <header className="glass-nav sticky top-0 z-50 border-b border-[var(--ds-outline-variant)]/20 shadow-soft">
-          <div className="flex justify-between items-center px-4 sm:px-6 py-3 sm:py-4 w-full max-w-7xl mx-auto">
+        <TopBar 
+          leftContent={
             <button onClick={() => navigate('/quran')} className="flex items-center gap-2 text-[var(--ds-primary)] hover:opacity-80 transition-opacity">
               <span className="material-symbols-outlined">arrow_back</span>
               <span className="text-sm font-medium hidden sm:inline">{t.surah_backToSurahs}</span>
             </button>
-            <div className="flex items-center gap-4">
-              <button className="text-[var(--ds-on-surface)] hover:bg-[var(--ds-surface-container)] transition-colors p-2 rounded-full">
-                <span className="material-symbols-outlined">notifications</span>
-              </button>
-              <button className="text-[var(--ds-on-surface)] hover:bg-[var(--ds-surface-container)] transition-colors p-2 rounded-full">
-                <span className="material-symbols-outlined">account_circle</span>
-              </button>
-            </div>
-          </div>
-        </header>
+          } 
+        />
 
         <main className="flex-1 max-w-5xl mx-auto w-full pb-32 md:pb-12">
           {loading && (
