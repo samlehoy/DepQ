@@ -49,13 +49,50 @@ function Profile() {
     setError(null); setSuccess(false); setLoading(true);
     try {
       const updates = {};
-      if (formData.email !== user.email) updates.email = formData.email;
+      const emailChanged = formData.email !== user.email;
+      if (emailChanged) updates.email = formData.email;
       if (formData.password) updates.password = formData.password;
-      if (formData.name !== user.user_metadata?.full_name) updates.data = { full_name: formData.name };
+      
+      const nameChanged = formData.name !== user.user_metadata?.full_name && formData.name !== user.user_metadata?.name;
+      if (nameChanged) {
+        updates.data = { 
+          full_name: formData.name,
+          name: formData.name // Google OAuth uses 'name' as well, so update both to reflect in Supabase Auth dashboard
+        };
+      }
+      
+      let hasChanges = false;
+
+      // Update Auth if needed
       if (Object.keys(updates).length > 0) {
         const { error: updateError } = await supabase.auth.updateUser(updates);
         if (updateError) throw updateError;
+        hasChanges = true;
+      }
+      
+      // Always sync the public profiles table to prevent it from getting out of sync 
+      // (e.g. from Google OAuth logins that don't trigger trigger profile table insertions)
+      const { error: profileError } = await supabase
+        .from('profiles')
+        .update({ full_name: formData.name })
+        .eq('id', user.id);
+        
+      if (profileError) {
+        console.error('Failed to sync profile table:', profileError);
+      } else {
+        hasChanges = true;
+      }
+
+      if (hasChanges) {
+        // Force a session refresh so the UI updates immediately
+        await supabase.auth.refreshSession();
         setSuccess(true);
+        
+        // If email was changed, we might need to inform them about confirmation
+        if (emailChanged) {
+          alert(t.emailConfirmationSent || "If you changed your email, please check both your old and new inbox to confirm.");
+        }
+
         setTimeout(() => navigate('/settings'), 1500);
       } else {
         navigate('/settings');

@@ -71,6 +71,7 @@ This section outlines the roadmap for implementing advanced features now that th
 - **[DONE] Daily Progress and Continue Reading:** Fixed by implementing a `useProgress` hook that syncs to localStorage for guests and a `user_progress` table in Supabase for logged-in users. `Home.jsx` and `Surah.jsx` updated to consume the hook.
 - **[DONE] While in quran page, Notification and Setting on the top navbar is not working:** Fixed by exposing a `leftContent` prop in the `TopBar` component and importing it into `Surah.jsx`, completely replacing the non-functional hardcoded `<header>`.
 - **[DONE] Settings Page Icon Adjustment:** Fixed by adding `shrink-0` to the icon wrappers in `Settings.jsx` so they maintain a perfect circle/square on smaller mobile screens (e.g. Samsung S25).
+- **Profile update is not working:** e.g. update name, email or password.
 
 
 ---
